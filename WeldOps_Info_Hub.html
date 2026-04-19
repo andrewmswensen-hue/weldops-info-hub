@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeldOps — Project Hub</title>
+<meta name="description" content="WeldOps: a purpose-built business management platform for small welding and fabrication shops. Market research, brand strategy, and platform architecture.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ─────────────────────────────────────────────────────────
+   CSS VARIABLES — edit here to retheme everything
+   ───────────────────────────────────────────────────────── */
+:root {
+  --navy:        #1F3A73;
+  --navy-hover:  #182d5a;
+  --navy-light:  #EFF4FB;
+  --navy-mid:    #B5D4F4;
+  --amber:       #D97706;
+  --amber-light: #FEF3E2;
+  --amber-mid:   #F6C46A;
+  --steel:       #374151;
+  --smoke:       #F5F5F4;
+  --white:       #FFFFFF;
+  --dark:        #111827;
+  --text:        #1F2937;
+  --muted:       #6B7280;
+  --faint:       #9CA3AF;
+  --border:      rgba(0,0,0,0.09);
+  --border-med:  rgba(0,0,0,0.15);
+
+  /* Phase colors */
+  --p1-bg: #FEF3E2; --p1-bd: #F6C46A; --p1-dot: #7C3F08; --p1-nb: #1F3A73;
+  --p2-bg: #E1F5EE; --p2-bd: #7ED4B8; --p2-dot: #075240; --p2-nb: #075240;
+  --p3-bg: #EEEDFE; --p3-bd: #B8B4F0; --p3-dot: #3D348F; --p3-nb: #5B3D00;
+  --p4-bg: #FCEEE9; --p4-bd: #F0A98A; --p4-dot: #7A2A10; --p4-nb: #4C1D95;
+  --cli-bg: #EFF4FB; --cli-bd: #93C4EF; --cli-dot: #0C447C;
+  --svc-bg: #EEF8E3; --svc-bd: #A8D478; --svc-dot: #2B4F0A;
+  --inf-bg: #F5F5F4; --inf-bd: #D1D0C9;  --inf-dot: #444;
+
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --max-w: 1260px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-sans); color: var(--text); background: #FAFAF9; line-height: 1.6; }
+a { color: inherit; text-decoration: none; }
+code { font-family: var(--font-mono); font-size: 0.88em; background: var(--smoke); padding: 1px 5px; border-radius: 3px; }
+
+/* ─────────────────────────────────────────────────────────
+   TOP HEADER
+   ───────────────────────────────────────────────────────── */
+.top-header {
+  background: var(--navy);
+  border-bottom: 3px solid var(--amber);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.top-header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  gap: 0;
+}
+.logo {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-right: 32px;
+  white-space: nowrap;
+}
+.logo span { color: var(--amber); }
+
+/* Section switcher tabs */
+.section-tabs {
+  display: flex;
+  height: 54px;
+  gap: 0;
+  flex: 1;
+}
+.section-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+.section-tab:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+.section-tab.active { color: #fff; border-bottom-color: var(--amber); }
+.tab-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.section-tab.active .tab-dot { opacity: 1; }
+.td-research { background: #60A5FA; }
+.td-brand    { background: var(--amber); }
+.td-platform { background: #86EFAC; }
+
+.header-right {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SUB-NAV (section-specific)
+   ───────────────────────────────────────────────────────── */
+.sub-nav {
+  background: #fff;
+  border-bottom: 0.5px solid var(--border);
+  position: sticky;
+  top: 54px;
+  z-index: 199;
+  display: none;
+}
+.sub-nav.visible { display: block; }
+.sub-nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sub-nav-inner::-webkit-scrollbar { display: none; }
+.sub-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 10px 14px;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.sub-link:hover { color: var(--navy); }
+.sub-link.active { color: var(--navy); border-bottom-color: var(--amber); }
+
+/* ─────────────────────────────────────────────────────────
+   PAGE SECTIONS (top-level panels)
+   ───────────────────────────────────────────────────────── */
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* ─────────────────────────────────────────────────────────
+   HERO BANNERS (one per section)
+   ───────────────────────────────────────────────────────── */
+.hero {
+  background: var(--navy);
+  padding: 52px 24px 48px;
+}
+.hero-inner { max-width: var(--max-w); margin: 0 auto; }
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-title {
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.stat-num { font-family: var(--font-mono); font-size: 26px; font-weight: 500; color: var(--amber); display: block; }
+.stat-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ─────────────────────────────────────────────────────────
+   CONTENT LAYOUT
+   ───────────────────────────────────────────────────────── */
+.content-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.spec-section {
+  padding: 44px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.spec-section:last-child { border-bottom: none; }
+.sec-hd {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.sec-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  font-weight: 500;
+}
+.sec-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.2px;
+}
+.sec-desc {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   GRID LAYOUTS
+   ───────────────────────────────────────────────────────── */
+.g2 { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.g3 { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.g4 { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+@media(max-width:900px){ .g4{grid-template-columns:repeat(2,minmax(0,1fr))} .g3{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(max-width:580px){ .g4,.g3,.g2{grid-template-columns:1fr} }
+
+/* ─────────────────────────────────────────────────────────
+   CARDS
+   ───────────────────────────────────────────────────────── */
+.card {
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  border: 0.5px solid var(--border);
+}
+.card.navy  { background: var(--navy-light);  border-color: var(--navy-mid);  }
+.card.smoke { background: var(--smoke);        border-color: var(--border);    }
+.card.white { background: #fff;               border-color: var(--border-med);}
+.card.p1    { background: var(--p1-bg);        border-color: var(--p1-bd);    }
+.card.p2    { background: var(--p2-bg);        border-color: var(--p2-bd);    }
+.card.p3    { background: var(--p3-bg);        border-color: var(--p3-bd);    }
+.card.p4    { background: var(--p4-bg);        border-color: var(--p4-bd);    }
+.card.cli   { background: var(--cli-bg);       border-color: var(--cli-bd);   }
+.card.svc   { background: var(--svc-bg);       border-color: var(--svc-bd);   }
+.card.inf   { background: var(--inf-bg);       border-color: var(--inf-bd);   }
+.card.amber { background: var(--amber-light);  border-color: var(--amber-mid);}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.cdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.cdot.p1 { background: var(--p1-dot); }
+.cdot.p2 { background: var(--p2-dot); }
+.cdot.p3 { background: var(--p3-dot); }
+.cdot.p4 { background: var(--p4-dot); }
+.cdot.cli { background: var(--cli-dot); }
+.cdot.svc { background: var(--svc-dot); }
+.cdot.inf { background: var(--inf-dot); }
+.cdot.navy { background: var(--navy); }
+.cdot.amber { background: var(--amber); }
+
+.items { display: flex; flex-direction: column; gap: 4px; }
+.ci {
+  font-size: 11px;
+  color: var(--dark);
+  background: rgba(255,255,255,0.72);
+  border: 0.5px solid rgba(0,0,0,0.07);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  line-height: 1.4;
+}
+
+/* ─────────────────────────────────────────────────────────
+   BADGES
+   ───────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.bp1 { background: var(--navy);   color: #fff; }
+.bp2 { background: #075240;       color: #fff; }
+.bp3 { background: #5B3D00;       color: #fff; }
+.bp4 { background: #4C1D95;       color: #fff; }
+.btag { background: #E5E7EB; color: #374151; }
+.btag.green { background: #D1FAE5; color: #065F46; }
+.btag.amber { background: var(--amber-light); color: #78350F; }
+.btag.red   { background: #FEE2E2; color: #991B1B; }
+.btag.blue  { background: var(--navy-light); color: #0C447C; }
+
+/* ─────────────────────────────────────────────────────────
+   CALLOUT BOXES
+   ───────────────────────────────────────────────────────── */
+.callout {
+  padding: 13px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 14px 0;
+  border-left: 4px solid;
+  color: var(--dark);
+}
+.callout.info    { background: var(--navy-light);  border-color: var(--navy); }
+.callout.warning { background: var(--amber-light); border-color: var(--amber); }
+.callout.success { background: #ECFDF5; border-color: #059669; }
+.callout strong  { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; }
+
+/* ─────────────────────────────────────────────────────────
+   TABLES
+   ───────────────────────────────────────────────────────── */
+.tbl-wrap { overflow-x: auto; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 520px; }
+thead tr { background: var(--navy); }
+th { color: #fff; font-weight: 500; text-align: left; padding: 9px 13px; font-size: 11px; letter-spacing: 0.3px; }
+td { padding: 8px 13px; border-bottom: 0.5px solid var(--border); vertical-align: top; line-height: 1.5; color: var(--text); }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #F9F9F8; }
+.tn { font-weight: 600; color: var(--navy); white-space: nowrap; }
+.tf { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+.fk { color: #185FA5; font-weight: 600; font-size: 9px; background: var(--navy-light); border-radius: 3px; padding: 1px 3px; }
+.layer-row td { background: var(--navy-light) !important; font-weight: 600; font-size: 11px; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ─────────────────────────────────────────────────────────
+   FLOW PILLS
+   ───────────────────────────────────────────────────────── */
+.flow-list { display: flex; flex-direction: column; gap: 6px; }
+.flow-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; font-size: 11px; }
+.pill { background: #fff; border: 0.5px solid var(--border-med); border-radius: 20px; padding: 3px 9px; font-size: 11px; color: var(--dark); white-space: nowrap; }
+.arrow { color: var(--faint); font-size: 12px; }
+.flow-div { border: none; border-top: 0.5px dashed var(--border); margin: 8px 0; }
+
+/* ─────────────────────────────────────────────────────────
+   ICP PROFILE CARDS
+   ───────────────────────────────────────────────────────── */
+.icp-card {
+  background: #fff;
+  border: 0.5px solid var(--border-med);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.icp-header {
+  background: var(--navy);
+  padding: 14px 16px;
+  color: #fff;
+}
+.icp-name { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.icp-sub  { font-size: 12px; color: rgba(255,255,255,0.55); }
+.icp-rows { }
+.icp-row  { display: flex; padding: 7px 14px; border-bottom: 0.5px solid var(--border); font-size: 12px; }
+.icp-row:last-child { border: none; }
+.icp-label { font-weight: 500; min-width: 120px; color: var(--steel); flex-shrink: 0; }
+.icp-val   { color: var(--dark); }
+.pain-bar  { display: flex; gap: 3px; margin-top: 4px; }
+.pip       { width: 14px; height: 8px; border-radius: 2px; background: var(--border); }
+.pip.on    { background: var(--amber); }
+.pip.red   { background: #EF4444; }
+
+/* ─────────────────────────────────────────────────────────
+   COLOR SWATCHES
+   ───────────────────────────────────────────────────────── */
+.swatch-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.swatch {
+  flex: 1;
+  min-width: 100px;
+  height: 80px;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  border: 0.5px solid rgba(0,0,0,0.1);
+}
+.swatch-name { font-size: 12px; font-weight: 600; }
+.swatch-hex  { font-family: var(--font-mono); font-size: 10px; opacity: 0.75; }
+
+/* ─────────────────────────────────────────────────────────
+   EFFORT PIPS
+   ───────────────────────────────────────────────────────── */
+.ep { display: inline-flex; gap: 3px; }
+.ep span { width: 10px; height: 10px; border-radius: 2px; background: var(--border); }
+.ep span.on { background: var(--amber); }
+
+/* ─────────────────────────────────────────────────────────
+   COPY/VALUE BLOCKS (brand voice)
+   ───────────────────────────────────────────────────────── */
+.voice-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.vp-good { background: #ECFDF5; border: 0.5px solid #6EE7B7; border-radius: var(--radius); padding: 12px 14px; }
+.vp-bad  { background: #FEF2F2; border: 0.5px solid #FCA5A5; border-radius: var(--radius); padding: 12px 14px; }
+.vp-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.vp-good .vp-label { color: #059669; }
+.vp-bad  .vp-label { color: #DC2626; }
+.vp-text  { font-size: 13px; color: var(--dark); line-height: 1.55; font-style: italic; }
+
+/* ─────────────────────────────────────────────────────────
+   SITE FOOTER
+   ───────────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.35);
+  padding: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+  margin-top: 48px;
+}
+.site-footer strong { color: rgba(255,255,255,0.65); }
+
+/* ─────────────────────────────────────────────────────────
+   PHASE LEGEND (shared)
+   ───────────────────────────────────────────────────────── */
+.phase-legend {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  padding: 12px 14px;
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.pl-item { display: flex; align-items: center; gap: 7px; }
+
+/* ─────────────────────────────────────────────────────────
+   PRINT
+   ───────────────────────────────────────────────────────── */
+@media print {
+  .top-header, .sub-nav { position: static; }
+  .page-section { display: block !important; }
+  .spec-section { page-break-inside: avoid; padding: 24px 0; }
+  .card { break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     TOP HEADER + SECTION SWITCHER
+     ════════════════════════════════════════════════════════ -->
+<header class="top-header">
+  <div class="top-header-inner">
+    <span class="logo">Weld<span>Ops</span></span>
+
+    <div class="section-tabs">
+      <div class="section-tab active" onclick="switchSection('research', this)">
+        <span class="tab-dot td-research"></span>Market research
+      </div>
+      <div class="section-tab" onclick="switchSection('brand', this)">
+        <span class="tab-dot td-brand"></span>Brand guide
+      </div>
+      <div class="section-tab" onclick="switchSection('platform', this)">
+        <span class="tab-dot td-platform"></span>Platform spec
+      </div>
+    </div>
+
+    <span class="header-right">v1.0 · April 2026</span>
+  </div>
+</header>
+
+<!-- Sub-nav: Research -->
+<nav class="sub-nav visible" id="subnav-research">
+  <div class="sub-nav-inner">
+    <span class="sub-link active" onclick="scrollTo_('r-overview', this)">Overview</span>
+    <span class="sub-link" onclick="scrollTo_('r-gap', this)">Market gap</span>
+    <span class="sub-link" onclick="scrollTo_('r-size', this)">Market size</span>
+    <span class="sub-link" onclick="scrollTo_('r-competitive', this)">Competitive landscape</span>
+    <span class="sub-link" onclick="scrollTo_('r-revenue', this)">Shop revenue data</span>
+    <span class="sub-link" onclick="scrollTo_('r-solutions', this)">Current solutions</span>
+    <span class="sub-link" onclick="scrollTo_('r-gtm', this)">Go-to-market</span>
+  </div>
+</nav>
+
+<!-- Sub-nav: Brand -->
+<nav class="sub-nav" id="subnav-brand">
+  <div class="sub-nav-inner">
+    <span class="sub-link active" onclick="scrollTo_('b-overview', this)">Overview</span>
+    <span class="sub-link" onclick="scrollTo_('b-icp', this)">ICP profiles</span>
+    <span class="sub-link" onclick="scrollTo_('b-positioning', this)">Positioning</span>
+    <span class="sub-link" onclick="scrollTo_('b-voice', this)">Voice &amp; tone</span>
+    <span class="sub-link" onclick="scrollTo_('b-visual', this)">Visual identity</span>
+    <span class="sub-link" onclick="scrollTo_('b-outreach', this)">Outreach</span>
+  </div>
+</nav>
+
+<!-- Sub-nav: Platform -->
+<nav class="sub-nav" id="subnav-platform">
+  <div class="sub-nav-inner">
+    <span class="sub-link active" onclick="scrollTo_('p-overview', this)">Overview</span>
+    <span class="sub-link" onclick="scrollTo_('p-clients', this)">Client layer</span>
+    <span class="sub-link" onclick="scrollTo_('p-phase1', this)">Phase 1 — MVP</span>
+    <span class="sub-link" onclick="scrollTo_('p-phase2', this)">Phase 2</span>
+    <span class="sub-link" onclick="scrollTo_('p-phase3', this)">Phase 3</span>
+    <span class="sub-link" onclick="scrollTo_('p-phase4', this)">Phase 4</span>
+    <span class="sub-link" onclick="scrollTo_('p-data', this)">Data model</span>
+    <span class="sub-link" onclick="scrollTo_('p-services', this)">Background services</span>
+    <span class="sub-link" onclick="scrollTo_('p-infra', this)">Infrastructure</span>
+    <span class="sub-link" onclick="scrollTo_('p-stack', this)">Tech stack decisions</span>
+    <span class="sub-link" onclick="scrollTo_('p-build', this)">Build sequence</span>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 1: MARKET RESEARCH
+     ════════════════════════════════════════════════════════ -->
+<div id="page-research" class="page-section active">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Market Research</p>
+      <h1 class="hero-title">The gap nobody filled for 10+ years</h1>
+      <p class="hero-sub">Rigorous industry research validating the WeldOps opportunity — 12 industries evaluated, one confirmed gap, and a 27,000-business addressable market with no purpose-built solution.</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">27,193</span><span class="stat-label">Active U.S. welding businesses</span></div>
+        <div><span class="stat-num">~59%</span><span class="stat-label">Have no website</span></div>
+        <div><span class="stat-num">$8.95B</span><span class="stat-label">U.S. welding market by 2032</span></div>
+        <div><span class="stat-num">&lt;5%</span><span class="stat-label">Using purpose-built software</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- R: Overview -->
+    <section class="spec-section" id="r-overview">
+      <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Research overview</h2></div>
+      <p class="sec-desc">Research spanned 12+ blue-collar industries to identify underserved segments lacking purpose-built software. After stress-testing each against existing SaaS coverage, one clear gap emerged.</p>
+      <div class="callout info"><strong>Key finding</strong>Small and mobile welding/fabrication shops (1–10 employees) have no purpose-built, mobile-first business management tool. This problem has been unanswered since at least 2014 — AWS forum threads from that year still show shop owners falling back on QuickBooks because nothing better exists.</div>
+    </section>
+
+    <!-- R: Gap -->
+    <section class="spec-section" id="r-gap">
+      <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">Industries evaluated — finding the gap</h2></div>
+      <p class="sec-desc">Every industry below was evaluated and eliminated based on adequate existing SaaS coverage before arriving at the confirmed gap.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Industry</th><th>Verdict</th><th>Why eliminated / confirmed</th></tr></thead>
+          <tbody>
+            <tr><td>Fire suppression maintenance</td><td><span class="badge btag">Covered</span></td><td>ServiceTrade, Smart Service dominate</td></tr>
+            <tr><td>Septic pumping</td><td><span class="badge btag">Covered</span></td><td>ServiceCore, Tank Track, Septic Mgmt Solutions</td></tr>
+            <tr><td>Elevator inspection</td><td><span class="badge btag">Covered</span></td><td>LiftKeeper, Field Force Tracker, SafetyCulture</td></tr>
+            <tr><td>Grease trap / hood cleaning</td><td><span class="badge btag">Covered</span></td><td>ServiceTrade + Smart Service at mid-market</td></tr>
+            <tr><td>Dumpster rental</td><td><span class="badge btag">Covered</span></td><td>Docket, DRS, TrashLab — crowded space</td></tr>
+            <tr><td>Tree service / arborist</td><td><span class="badge btag">Covered</span></td><td>ArboStar, Arborgold, Zentive</td></tr>
+            <tr><td>Irrigation installation</td><td><span class="badge btag">Covered</span></td><td>ServiceTitan vertical + dedicated tools</td></tr>
+            <tr><td>Party / event equipment rental</td><td><span class="badge btag">Covered</span></td><td>ERS (since 2004), Party Track, integraRental</td></tr>
+            <tr><td>Livestock / cattle management</td><td><span class="badge btag">Covered</span></td><td>Herdwatch, Ranch Vision, AgriWebb</td></tr>
+            <tr><td>Sign installation</td><td><span class="badge btag">Covered</span></td><td>SignVOX, JOBSCOPE, EstiMate, Striven</td></tr>
+            <tr><td>Mobile notary / signing</td><td><span class="badge btag">Covered</span></td><td>CloseWise, Snapdocs, NotaryGadget</td></tr>
+            <tr><td style="font-weight:600;color:var(--navy)">Small mobile welding / fab shop</td><td><span class="badge btag green">GAP CONFIRMED</span></td><td style="font-weight:500;color:var(--navy)">No purpose-built, mobile-first tool exists</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- R: Market size -->
+    <section class="spec-section" id="r-size">
+      <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Market size</h2></div>
+      <p class="sec-desc">Data sourced from poidata.io (Dec 2025), U.S. Census Bureau NAICS data, and the American Welding Society.</p>
+      <div class="g4" style="margin-bottom:20px">
+        <div class="card smoke"><div class="card-title"><span class="cdot navy"></span>Business count</div><div style="font-size:28px;font-weight:600;color:var(--navy);font-family:var(--font-mono)">27,193</div><div style="font-size:11px;color:var(--muted)">Active welding service businesses in the U.S.</div></div>
+        <div class="card smoke"><div class="card-title"><span class="cdot navy"></span>With websites</div><div style="font-size:28px;font-weight:600;color:var(--navy);font-family:var(--font-mono)">11,223</div><div style="font-size:11px;color:var(--muted)">~41% have a digital presence</div></div>
+        <div class="card smoke"><div class="card-title"><span class="cdot amber"></span>Without websites</div><div style="font-size:28px;font-weight:600;color:var(--amber);font-family:var(--font-mono)">~15,970</div><div style="font-size:11px;color:var(--muted)">~59% have zero digital presence</div></div>
+        <div class="card smoke"><div class="card-title"><span class="cdot navy"></span>Market by 2032</div><div style="font-size:28px;font-weight:600;color:var(--navy);font-family:var(--font-mono)">$8.95B</div><div style="font-size:11px;color:var(--muted)">U.S. welding market (Fortune Business Insights)</div></div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>TAM scenario</th><th>Penetration</th><th>Customers</th><th>ARR</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Scenario A</strong> — Digitally-aware shops</td><td>5% of shops w/ websites</td><td>~560</td><td><strong>~$666K</strong></td></tr>
+            <tr><td><strong>Scenario B</strong> — All shops with websites</td><td>10% of shops w/ websites</td><td>~1,120</td><td><strong>~$1.33M</strong></td></tr>
+            <tr><td><strong>Scenario C</strong> — Bundled website + software</td><td>No-website segment</td><td>~1,600</td><td><strong>~$2.28M</strong></td></tr>
+            <tr><td><strong>Full ceiling</strong> — Adjacent trades expansion</td><td>Ironworkers, machinists, trailer builders</td><td>5,000+</td><td><strong>$8–15M</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- R: Competitive -->
+    <section class="spec-section" id="r-competitive">
+      <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">Competitive landscape</h2></div>
+      <p class="sec-desc">Four categories of existing tools all fail the small welding shop in different ways. None were built for this audience.</p>
+      <div class="g2">
+        <div class="card white">
+          <div class="card-title"><span class="cdot amber"></span>Category 1 — Enterprise ERP / MRP</div>
+          <div class="items">
+            <div class="ci">JobBOSS2 — designed for 10–50+ employee shops, requires IT setup</div>
+            <div class="ci">MRPeasy — complex bill-of-materials overkill for service shops</div>
+            <div class="ci">E2 ShopTech — 20+ years old, outdated UI, not mobile-first</div>
+            <div class="ci">SecturaFAB — CAD-driven, requires file uploads, not for general fab</div>
+            <div class="ci" style="color:var(--muted)">Who it serves: 50+ employee shops with dedicated office staff</div>
+          </div>
+        </div>
+        <div class="card white">
+          <div class="card-title"><span class="cdot amber"></span>Category 2 — Generic field service</div>
+          <div class="items">
+            <div class="ci">Jobber — built for landscaping / HVAC, no metal-specific features</div>
+            <div class="ci">Tradify — no material cost-by-type, no weld spec tracking</div>
+            <div class="ci">OctopusPro — markets to welders but is fully generic field service</div>
+            <div class="ci">ServiceTitan — enterprise price point, overkill for 3-person shop</div>
+            <div class="ci" style="color:var(--muted)">Who it serves: HVAC, plumbing, cleaning — not custom fab</div>
+          </div>
+        </div>
+        <div class="card white">
+          <div class="card-title"><span class="cdot amber"></span>Category 3 — Weld QA / documentation</div>
+          <div class="items">
+            <div class="ci">WeldinGo — weld procedure QA for industrial construction projects</div>
+            <div class="ci">WeldTrace — large-scale project tracking, certified engineering workflow</div>
+            <div class="ci">WeldTrack — QC/QA focused, not a business management tool</div>
+            <div class="ci" style="color:var(--muted)">Who it serves: Industrial project environments, not service shops</div>
+          </div>
+        </div>
+        <div class="card white">
+          <div class="card-title"><span class="cdot amber"></span>Category 4 — Generic small business (current "solution")</div>
+          <div class="items">
+            <div class="ci">QuickBooks — most common fallback, no scheduling or job management</div>
+            <div class="ci">Spreadsheets — universal for quoting, fully manual</div>
+            <div class="ci">Phone + paper — still dominant for scheduling and job tracking</div>
+            <div class="ci" style="color:var(--muted)">Who it serves: Anyone who can't find a purpose-built option</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- R: Revenue data -->
+    <section class="spec-section" id="r-revenue">
+      <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Shop revenue &amp; income data</h2></div>
+      <p class="sec-desc">Financial reality of the target customer. WeldOps sweet spot is $150K–$600K annual revenue, 1–5 employees. These owners are busy enough to feel the pain but too small for enterprise tools.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Shop type</th><th>Annual revenue</th><th>Profit margin</th><th>Owner take-home</th><th>Employees</th></tr></thead>
+          <tbody>
+            <tr><td>Solo mobile welder</td><td>$80K–$180K</td><td>55–70%</td><td>$60K–$120K</td><td>0 (owner only)</td></tr>
+            <tr><td>Mobile + 1 crew</td><td>$150K–$320K</td><td>35–50%</td><td>$80K–$160K</td><td>1–2</td></tr>
+            <tr><td>Small shop, mixed work</td><td>$250K–$500K</td><td>25–40%</td><td>$90K–$200K</td><td>2–5</td></tr>
+            <tr><td>Established shop</td><td>$500K–$1.2M</td><td>18–30%</td><td>$120K–$360K</td><td>5–10</td></tr>
+            <tr><td>Commercial / structural focus</td><td>$800K–$3M</td><td>12–22%</td><td>$150K–$500K</td><td>8–20+</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warning"><strong>WeldOps sweet spot</strong>Shops doing $150K–$600K/year, 1–5 employees. Busy enough to feel the pain of disorganization — small enough that enterprise software is completely out of reach. They're leaving money on the table weekly through under-quoted jobs, uncollected invoices, and untracked materials.</div>
+    </section>
+
+    <!-- R: Current solutions -->
+    <section class="spec-section" id="r-solutions">
+      <div class="sec-hd"><span class="sec-num">06</span><h2 class="sec-title">Current solutions in use</h2></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Tool</th><th>Usage est.</th><th>What they use it for</th><th>Why it fails them</th></tr></thead>
+          <tbody>
+            <tr><td>QuickBooks</td><td>~40%</td><td>Invoicing, basic bookkeeping</td><td>No job tracking, quoting, or scheduling</td></tr>
+            <tr><td>Paper + notebook</td><td>~55%</td><td>Job notes, material lists, scheduling</td><td>Lost, unorganized, not mobile</td></tr>
+            <tr><td>Excel / Google Sheets</td><td>~35%</td><td>Quoting, material cost tracking</td><td>Manual, error-prone, no automation</td></tr>
+            <tr><td>Text / phone only</td><td>~60%</td><td>Customer comms, scheduling</td><td>No paper trail, no reminders</td></tr>
+            <tr><td>Generic invoicing app</td><td>~15%</td><td>Invoice generation</td><td>Disconnected from jobs and quotes</td></tr>
+            <tr><td style="font-weight:600;color:var(--navy)">Purpose-built software</td><td style="color:var(--amber);font-weight:600">&lt;5%</td><td>—</td><td style="font-weight:500;color:var(--navy)">Nothing purpose-built exists for this segment</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- R: GTM -->
+    <section class="spec-section" id="r-gtm">
+      <div class="sec-hd"><span class="sec-num">07</span><h2 class="sec-title">Go-to-market overview</h2></div>
+      <div class="g3">
+        <div class="card navy">
+          <div class="card-title"><span class="cdot navy"></span>Primary acquisition channels</div>
+          <div class="items">
+            <div class="ci">YouTube — tutorial content, welding tips, business education</div>
+            <div class="ci">Facebook Groups — welding communities, recommendation-driven</div>
+            <div class="ci">Google SEO + Ads — "welding job management software"</div>
+            <div class="ci">Apollo.io cold outreach — ~27K contactable shops</div>
+            <div class="ci">Trade shows — FABTECH, regional AWS chapter events</div>
+          </div>
+        </div>
+        <div class="card navy">
+          <div class="card-title"><span class="cdot navy"></span>Lead list reality</div>
+          <div class="items">
+            <div class="ci">Apollo.io: 230M+ B2B contacts, filters by NAICS welding codes</div>
+            <div class="ci">Estimated contactable: 17,000–26,000 total across all ICPs</div>
+            <div class="ci">ICP #1 mobile: ~8,000–12,000 leads via Apollo + Google Maps</div>
+            <div class="ci">ICP #2 growing shops: ~6,000–9,000 via Apollo</div>
+            <div class="ci">ICP #3 commercial: ~3,000–5,000 via LinkedIn + Apollo</div>
+          </div>
+        </div>
+        <div class="card navy">
+          <div class="card-title"><span class="cdot navy"></span>Survey strategy</div>
+          <div class="items">
+            <div class="ci">Target: 50–100 responses from active shop owners</div>
+            <div class="ci">Platform: Typeform or Google Forms</div>
+            <div class="ci">Incentive: $25 Amazon gift card, 10 random winners ($250 total)</div>
+            <div class="ci">Channels: Facebook groups, Reddit r/welding, AWS chapters</div>
+            <div class="ci">Goal: Validate feature priority + willingness to pay</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content-wrap -->
+</div><!-- /page-research -->
+
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 2: BRAND GUIDE
+     ════════════════════════════════════════════════════════ -->
+<div id="page-brand" class="page-section">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Brand Guide</p>
+      <h1 class="hero-title">Built for the field, not the office.</h1>
+      <p class="hero-sub">WeldOps brand identity, voice, tone, and visual system — built around the values of the audience, not the aesthetics of a startup. Competence signaling over identity signaling.</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">3</span><span class="stat-label">ICP profiles</span></div>
+        <div><span class="stat-num">4</span><span class="stat-label">Voice pillars</span></div>
+        <div><span class="stat-num">5</span><span class="stat-label">Brand colors</span></div>
+        <div><span class="stat-num">6</span><span class="stat-label">Tested taglines</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- B: Overview -->
+    <section class="spec-section" id="b-overview">
+      <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Brand positioning</h2></div>
+      <div class="callout info"><strong>Positioning statement</strong>WeldOps is the only business management tool built specifically for the way welders and fabricators actually work — from the truck, the shop floor, and the job site.</div>
+      <div class="callout success"><strong>Brand promise</strong>WeldOps gives every welder and fabricator — from the solo mobile operator to the 10-person shop — the tools to run a tighter business without adding office work to an already full day.</div>
+      <div class="g3" style="margin-top:16px">
+        <div class="card white"><div class="card-title"><span class="cdot navy"></span>Primary tagline</div><div style="font-size:18px;font-weight:600;color:var(--navy);margin:8px 0">"Run your shop from your phone."</div><div style="font-size:11px;color:var(--muted)">Homepage hero, app store, primary ads</div></div>
+        <div class="card white"><div class="card-title"><span class="cdot amber"></span>Alt tagline 1</div><div style="font-size:16px;font-weight:600;color:var(--steel);margin:8px 0">"Built for the field, not the office."</div><div style="font-size:11px;color:var(--muted)">Landing pages, ICP #1 + #2 ads</div></div>
+        <div class="card white"><div class="card-title"><span class="cdot amber"></span>Alt tagline 2</div><div style="font-size:16px;font-weight:600;color:var(--steel);margin:8px 0">"Know your numbers. Keep your jobs. Get paid."</div><div style="font-size:11px;color:var(--muted)">Pain-point direct, cold outreach</div></div>
+      </div>
+    </section>
+
+    <!-- B: ICP -->
+    <section class="spec-section" id="b-icp">
+      <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">ICP profiles</h2></div>
+      <p class="sec-desc">Three distinct buyer profiles with different motivations, pain levels, and conversion triggers. WeldOps messaging, pricing, and onboarding are each tuned to one of these three.</p>
+      <div class="g3">
+
+        <div class="icp-card">
+          <div class="icp-header"><div class="icp-name">ICP #1 — Solo Mobile Operator</div><div class="icp-sub">1 person. 1 truck. Every dollar by their own hands.</div></div>
+          <div class="icp-rows">
+            <div class="icp-row"><span class="icp-label">Age</span><span class="icp-val">32–52</span></div>
+            <div class="icp-row"><span class="icp-label">Revenue</span><span class="icp-val">$80K–$200K/year</span></div>
+            <div class="icp-row"><span class="icp-label">Work type</span><span class="icp-val">Farm/ag repair, gates, mobile repair, trailers</span></div>
+            <div class="icp-row"><span class="icp-label">Tools today</span><span class="icp-val">Paper notebook, texts, Venmo, sometimes QuickBooks</span></div>
+            <div class="icp-row"><span class="icp-label">Pain level</span><span class="icp-val"><div class="pain-bar"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span></div></span></div>
+            <div class="icp-row"><span class="icp-label">Wins with</span><span class="icp-val">Word of mouth, free trial, instant value in 10 min</span></div>
+            <div class="icp-row"><span class="icp-label">Best tier</span><span class="icp-val"><span class="badge bp1">Starter $49/mo</span></span></div>
+          </div>
+        </div>
+
+        <div class="icp-card">
+          <div class="icp-header"><div class="icp-name">ICP #2 — Growing Shop Owner</div><div class="icp-sub">2–5 employees. Real revenue. Growing pains.</div></div>
+          <div class="icp-rows">
+            <div class="icp-row"><span class="icp-label">Age</span><span class="icp-val">35–55</span></div>
+            <div class="icp-row"><span class="icp-label">Revenue</span><span class="icp-val">$250K–$800K/year</span></div>
+            <div class="icp-row"><span class="icp-label">Work type</span><span class="icp-val">Mixed residential, commercial, agricultural</span></div>
+            <div class="icp-row"><span class="icp-label">Tools today</span><span class="icp-val">QuickBooks + Excel + whiteboard + texts</span></div>
+            <div class="icp-row"><span class="icp-label">Pain level</span><span class="icp-val"><div class="pain-bar"><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span><span class="pip red"></span></div></span></div>
+            <div class="icp-row"><span class="icp-label">Wins with</span><span class="icp-val">Demo showing real ROI, peer validation, case studies</span></div>
+            <div class="icp-row"><span class="icp-label">Best tier</span><span class="icp-val"><span class="badge bp2">Pro $99/mo</span></span></div>
+          </div>
+        </div>
+
+        <div class="icp-card">
+          <div class="icp-header"><div class="icp-name">ICP #3 — Commercial / Structural Specialist</div><div class="icp-sub">Certified. Credentialed. Running real contracts.</div></div>
+          <div class="icp-rows">
+            <div class="icp-row"><span class="icp-label">Age</span><span class="icp-val">38–58</span></div>
+            <div class="icp-row"><span class="icp-label">Revenue</span><span class="icp-val">$600K–$2.5M/year</span></div>
+            <div class="icp-row"><span class="icp-label">Work type</span><span class="icp-val">Structural steel, commercial, AWS-certified, gov contracts</span></div>
+            <div class="icp-row"><span class="icp-label">Tools today</span><span class="icp-val">Enterprise tools that don't fit, legacy software</span></div>
+            <div class="icp-row"><span class="icp-label">Pain level</span><span class="icp-val"><div class="pain-bar"><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></div></span></div>
+            <div class="icp-row"><span class="icp-label">Wins with</span><span class="icp-val">Compliance module depth — WPS library, cert tracking, PDF export</span></div>
+            <div class="icp-row"><span class="icp-label">Best tier</span><span class="icp-val"><span class="badge bp3">Shop+ $149/mo</span></span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- B: Positioning -->
+    <section class="spec-section" id="b-positioning">
+      <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Core values &amp; psychographic profile</h2></div>
+      <p class="sec-desc">All three ICPs share a consistent psychological profile regardless of shop size. This is the foundation of everything WeldOps communicates.</p>
+      <div class="g2">
+        <div class="card white">
+          <div class="card-title"><span class="cdot navy"></span>Core values (all ICPs share these)</div>
+          <div class="items">
+            <div class="ci">Self-reliance — they built something with their hands, by themselves</div>
+            <div class="ci">Anti-bullshit — can smell a sales pitch from a mile away</div>
+            <div class="ci">Competence over credentials — respect skill, not titles</div>
+            <div class="ci">Loyalty — once they trust something, they stick with it</div>
+            <div class="ci">Practicality — "does it work?" before "is it beautiful?"</div>
+            <div class="ci">Pride in craft — the work itself is the identity</div>
+            <div class="ci">Skepticism of tech — burned before by overpromised tools</div>
+            <div class="ci">Work ethic as a virtue — 5am starts, Saturday jobs, no complaints</div>
+          </div>
+        </div>
+        <div class="card amber">
+          <div class="card-title"><span class="cdot amber"></span>Branding approach: values, not symbols</div>
+          <div style="font-size:13px;line-height:1.7;color:var(--dark)">
+            <p style="margin-bottom:10px">This audience skews conservative and trades-proud — but that's who they <em>are</em>, not what you market to them. Overt patriotic branding on software triggers exactly the cynicism you're trying to avoid.</p>
+            <p style="margin-bottom:10px">Think about how <strong>Snap-on, DeWalt, and Lincoln Electric</strong> brand themselves. None wave flags. They show the tool doing real work. The authenticity <em>is</em> the brand.</p>
+            <p>The .us domain was rejected for the same reason — it reads as "regional directory," not "professional software platform."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B: Voice -->
+    <section class="spec-section" id="b-voice">
+      <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">Voice &amp; tone</h2></div>
+      <p class="sec-desc">Four pillars that define how WeldOps communicates in every context — from the website hero to error messages to cold emails.</p>
+
+      <div class="g2" style="margin-bottom:20px">
+        <div class="card p1">
+          <div class="card-title"><span class="cdot p1"></span>Pillar 1 — Straight talk</div>
+          <div style="font-size:13px;color:var(--dark);line-height:1.65">Direct, no decoration, no passive voice. If it can be said in 8 words, don't use 20. No buzzwords. No corporate speak. Every sentence earns its place.</div>
+        </div>
+        <div class="card p2">
+          <div class="card-title"><span class="cdot p2"></span>Pillar 2 — Respect the craft</div>
+          <div style="font-size:13px;color:var(--dark);line-height:1.65">Never talk down to users. The audience is highly skilled and proud. WeldOps treats them as experts who deserve equally expert tools — not beginners who need to be taught.</div>
+        </div>
+        <div class="card p3">
+          <div class="card-title"><span class="cdot p3"></span>Pillar 3 — Show, don't claim</div>
+          <div style="font-size:13px;color:var(--dark);line-height:1.65">This audience has been burned by overpromised tools. Trust is earned through specificity and evidence, not superlatives. Never "the best" — say what it does, how fast, and what it saves.</div>
+        </div>
+        <div class="card p4">
+          <div class="card-title"><span class="cdot p4"></span>Pillar 4 — Built by people who get it</div>
+          <div style="font-size:13px;color:var(--dark);line-height:1.65">Every piece of copy should feel like it came from someone who has spent time in a shop. Use trade terminology correctly. Don't overdo it. Earned, not performed.</div>
+        </div>
+      </div>
+
+      <div class="voice-pair">
+        <div class="vp-good"><div class="vp-label">Say this</div><div class="vp-text">"Quit losing track of jobs."</div></div>
+        <div class="vp-bad"><div class="vp-label">Not this</div><div class="vp-text">"Leverage mobile-first technology to optimize workflow management."</div></div>
+      </div>
+      <div class="voice-pair">
+        <div class="vp-good"><div class="vp-label">Say this</div><div class="vp-text">"Know if you're making money on every job."</div></div>
+        <div class="vp-bad"><div class="vp-label">Not this</div><div class="vp-text">"Gain comprehensive financial visibility across your project portfolio."</div></div>
+      </div>
+      <div class="voice-pair">
+        <div class="vp-good"><div class="vp-label">Say this</div><div class="vp-text">"You already know how to run a quality job. WeldOps makes sure the business side keeps up with you."</div></div>
+        <div class="vp-bad"><div class="vp-label">Not this</div><div class="vp-text">"WeldOps makes it easy for tradespeople who may not have a business background."</div></div>
+      </div>
+
+      <div style="margin-top:20px">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Words we use</th><th>Words we avoid</th></tr></thead>
+            <tbody>
+              <tr><td style="color:#059669;font-weight:500">Shop, job, crew, quote, invoice, track, see, know, run</td><td style="color:#DC2626">Solution, platform, ecosystem, leverage, optimize, streamline</td></tr>
+              <tr><td style="color:#059669;font-weight:500">Simple, fast, real, clear, built for welders</td><td style="color:#DC2626">Revolutionary, game-changing, best-in-class, purpose-built for the vertical</td></tr>
+              <tr><td style="color:#059669;font-weight:500">Money, margin, profit, time saved</td><td style="color:#DC2626">ROI maximization, value-add, strategic alignment</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- B: Visual -->
+    <section class="spec-section" id="b-visual">
+      <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Visual identity</h2></div>
+
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">Color palette</h3>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#1F3A73"><div class="swatch-name" style="color:#fff">Navy</div><div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#1F3A73 · Primary</div></div>
+        <div class="swatch" style="background:#D97706"><div class="swatch-name" style="color:#fff">Amber</div><div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#D97706 · Accent</div></div>
+        <div class="swatch" style="background:#374151"><div class="swatch-name" style="color:#fff">Steel</div><div class="swatch-hex" style="color:rgba(255,255,255,0.7)">#374151 · Body text</div></div>
+        <div class="swatch" style="background:#F3F4F6;border:0.5px solid #D1D5DB"><div class="swatch-name" style="color:#374151">Smoke</div><div class="swatch-hex" style="color:#9CA3AF">#F3F4F6 · Backgrounds</div></div>
+        <div class="swatch" style="background:#111827"><div class="swatch-name" style="color:#fff">Carbon</div><div class="swatch-hex" style="color:rgba(255,255,255,0.6)">#111827 · Dark mode</div></div>
+      </div>
+
+      <div class="g2" style="margin-top:8px">
+        <div class="card white">
+          <div class="card-title"><span class="cdot navy"></span>Photography principles</div>
+          <div class="items">
+            <div class="ci">Real shops, real grime — worn concrete, tool racks, cluttered benches</div>
+            <div class="ci">Actual sparks and arc light — not stock photo clean environments</div>
+            <div class="ci">Mobile context — gloved hands on a phone screen, truck beds, field</div>
+            <div class="ci">Faces of pride — the moment a finished gate or trailer is revealed</div>
+            <div class="ci">Before/after pairs — raw metal to finished product</div>
+          </div>
+        </div>
+        <div class="card white">
+          <div class="card-title"><span class="cdot amber"></span>Photography — never</div>
+          <div class="items">
+            <div class="ci">Stock photo welders in spotless environments with perfect PPE</div>
+            <div class="ci">Young, diverse, gender-balanced welding teams in matching gear</div>
+            <div class="ci">Office workers at standing desks — this product is not for offices</div>
+            <div class="ci">Overly filtered, Instagram-aesthetic metalwork</div>
+            <div class="ci">Staged photoshoots — real shops aren't that polished</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-top:16px"><strong>Typography</strong>Primary: IBM Plex Sans (functional, industrial, highly readable). Monospace accents: IBM Plex Mono (for numbers, code, product identifiers). Two weights only: 400 regular, 600 semibold. Sentence case always — never ALL CAPS in headlines.</div>
+    </section>
+
+    <!-- B: Outreach -->
+    <section class="spec-section" id="b-outreach">
+      <div class="sec-hd"><span class="sec-num">06</span><h2 class="sec-title">Cold outreach strategy</h2></div>
+      <div class="g2">
+        <div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Day</th><th>Channel</th><th>Goal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Day 1</strong></td><td>Email — personal, metro-specific</td><td>Open + click</td></tr>
+                <tr><td><strong>Day 4</strong></td><td>Email — pain-point story</td><td>Reply or click</td></tr>
+                <tr><td><strong>Day 7</strong></td><td>LinkedIn (ICP #3) or Facebook DM (ICP #1–2)</td><td>Connection + awareness</td></tr>
+                <tr><td><strong>Day 11</strong></td><td>Email — case study or "quick question"</td><td>Reply or booking</td></tr>
+                <tr><td><strong>Day 16</strong></td><td>Phone / SMS voicemail</td><td>Conversation</td></tr>
+                <tr><td><strong>Day 21</strong></td><td>Email — breakup email</td><td>Reply or clean removal</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warning"><strong>Cold email rule</strong>Never lead with features. Always lead with a specific pain. "Do you know which jobs actually make you money?" outperforms "Introducing WeldOps" every single time.</div>
+        </div>
+        <div class="card smoke">
+          <div class="card-title"><span class="cdot navy"></span>Example cold email — ICP #1</div>
+          <div style="font-size:12px;line-height:1.75;color:var(--dark);font-family:var(--font-mono);background:#fff;border-radius:6px;padding:12px 14px;border:0.5px solid var(--border)">
+            <div style="font-weight:600;margin-bottom:8px;color:var(--navy)">Subject: Do you know which jobs actually make you money?</div>
+            Hey [Name] —<br><br>
+            I looked you up after finding [Shop Name] in [City]. Looks like you've been doing mobile fab and repair work for a while.<br><br>
+            I talk to a lot of welders who are busy as hell but not totally sure which jobs actually make them money once materials are factored in. Most end up quoting from the gut.<br><br>
+            I'm building a simple tool for exactly this — job tracking, quotes with real material costs, and invoicing that doesn't require sitting at a computer.<br><br>
+            Would a 10-minute call this week make sense? Or I can just shoot you a link to try it yourself — no pitch.<br><br>
+            — [Your name]
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content-wrap -->
+</div><!-- /page-brand -->
+
+
+<!-- ════════════════════════════════════════════════════════
+     SECTION 3: PLATFORM SPEC
+     ════════════════════════════════════════════════════════ -->
+<div id="page-platform" class="page-section">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Platform Specification</p>
+      <h1 class="hero-title">Complete platform architecture</h1>
+      <p class="hero-sub">Full technical and functional blueprint for WeldOps — every module, data relationship, background service, integration, and infrastructure decision required to build the complete product.</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">4</span><span class="stat-label">Build phases</span></div>
+        <div><span class="stat-num">16</span><span class="stat-label">Core modules</span></div>
+        <div><span class="stat-num">14</span><span class="stat-label">Data entities</span></div>
+        <div><span class="stat-num">8</span><span class="stat-label">External integrations</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- P: Overview -->
+    <section class="spec-section" id="p-overview">
+      <div class="sec-hd"><span class="sec-num">00</span><h2 class="sec-title">Platform overview</h2></div>
+      <p class="sec-desc">WeldOps is a multi-tenant SaaS. Each shop is a tenant identified by <code>org_id</code>. Postgres row-level security enforces data isolation. Three frontends share one REST API.</p>
+      <div class="phase-legend">
+        <div class="pl-item"><span class="cdot p1"></span><span class="badge bp1">Phase 1</span>&nbsp;MVP — must ship to charge money</div>
+        <div class="pl-item"><span class="cdot p2"></span><span class="badge bp2">Phase 2</span>&nbsp;Growth — depth + integrations</div>
+        <div class="pl-item"><span class="cdot p3"></span><span class="badge bp3">Phase 3</span>&nbsp;Compliance + pro tools</div>
+        <div class="pl-item"><span class="cdot p4"></span><span class="badge bp4">Phase 4</span>&nbsp;Scale — website, crew, reviews</div>
+      </div>
+      <div class="callout info"><strong>Multi-tenancy model</strong>Every database record has an <code>org_id</code> foreign key. Postgres RLS policies ensure every query is automatically scoped to the authenticated user's organization. No shop can ever see another shop's data.</div>
+    </section>
+
+    <!-- P: Clients -->
+    <section class="spec-section" id="p-clients">
+      <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Client layer</h2></div>
+      <div class="g3">
+        <div class="card cli"><div class="card-title"><span class="cdot cli"></span>Web portal</div><div class="items"><div class="ci">React SPA — weld-ops.com</div><div class="ci">Vite · React Router · Zustand · Tailwind</div><div class="ci">Full desktop UI, all modules</div><div class="ci">Owner + office manager view</div><div class="ci">Dashboard + reporting focus</div></div></div>
+        <div class="card cli"><div class="card-title"><span class="cdot cli"></span>Mobile app</div><div class="items"><div class="ci">React Native — iOS + Android</div><div class="ci">Offline-first: SQLite (WatermelonDB)</div><div class="ci">Sync queue retries on reconnect</div><div class="ci">Camera + voice-to-text (Whisper API)</div><div class="ci">Push notifications FCM / APNS</div><div class="ci">Biometric lock · Glove mode (48px targets)</div></div></div>
+        <div class="card cli"><div class="card-title"><span class="cdot cli"></span>Customer portal</div><div class="items"><div class="ci">Lightweight Next.js or plain HTML</div><div class="ci">Per-shop subdomain: {shop}.weldops.app</div><div class="ci">Quote view + e-sign approval</div><div class="ci">Invoice view + Stripe payment link</div><div class="ci">Job status + photo gallery</div><div class="ci">No login required — token in URL</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Phase 1 -->
+    <section class="spec-section" id="p-phase1">
+      <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">Phase 1 — Core MVP <span class="badge bp1" style="font-size:11px;margin-left:6px">Must ship first</span></h2></div>
+      <p class="sec-desc">Six modules. A shop owner can quote, track, invoice, and collect payment from their phone. Nothing else should block the first paying customer.</p>
+      <div class="g3">
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Quote builder <span class="badge bp1">P1</span></div><div class="items"><div class="ci">Metal type selector + static price table</div><div class="ci">Material line items: qty × unit cost</div><div class="ci">Labor rate × hours + markup % + tax</div><div class="ci">Auto-computed totals</div><div class="ci">PDF generation (Puppeteer — queued)</div><div class="ci">Send via email (SES) or SMS (Twilio)</div><div class="ci">Status: Draft→Sent→Viewed→Approved→Declined</div><div class="ci">Expiration + auto-reminder</div><div class="ci">1-click → convert approved quote to job</div><div class="ci">Customer e-sign via portal token URL</div></div></div>
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Job management <span class="badge bp1">P1</span></div><div class="items"><div class="ci">Job linked to Quote + Customer</div><div class="ci">Status: Quoted→Scheduled→Active→Finishing→Done</div><div class="ci">Kanban board + list view</div><div class="ci">Crew assignment + push notification</div><div class="ci">Job notes + voice-to-text</div><div class="ci">Photo attach — S3, auto-tagged</div><div class="ci">Deposit tracking + due date</div><div class="ci">Job history per customer</div><div class="ci">1-click generate invoice from done job</div></div></div>
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Customer CRM <span class="badge bp1">P1</span></div><div class="items"><div class="ci">Contact: name, phone, email, address</div><div class="ci">Type tag: residential / commercial / ag</div><div class="ci">Full job + quote + invoice history</div><div class="ci">Communication log (auto + manual)</div><div class="ci">Lifetime value (LTV) auto-calculated</div><div class="ci">Quick-call / quick-text actions</div><div class="ci">Referral source tracking</div></div></div>
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Invoicing <span class="badge bp1">P1</span></div><div class="items"><div class="ci">Auto-generate from approved quote</div><div class="ci">Line items + deposit deduction inherited</div><div class="ci">PDF + Stripe payment link via email/SMS</div><div class="ci">Status: Draft→Sent→Viewed→Paid→Overdue</div><div class="ci">Manual payment log (cash/check/Venmo)</div><div class="ci">Overdue reminders: 7d, 14d, 21d</div><div class="ci">Partial payment tracking</div></div></div>
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Payments — Stripe Connect <span class="badge bp1">P1</span></div><div class="items"><div class="ci">Each shop has own Stripe Connect account</div><div class="ci">Card (Visa/MC/Amex) + ACH</div><div class="ci">Webhook → invoice status update</div><div class="ci">Receipt auto-emailed on payment</div><div class="ci">Fee pass-through or absorb (per-shop)</div><div class="ci">Platform fee: 0.5% of transaction volume</div></div></div>
+        <div class="card p1"><div class="card-title"><span class="cdot p1"></span>Mobile app core <span class="badge bp1">P1</span></div><div class="items"><div class="ci">React Native — iOS + Android</div><div class="ci">SQLite offline (WatermelonDB)</div><div class="ci">Sync queue — last-write-wins conflict resolution</div><div class="ci">In-app camera → S3 + job tag</div><div class="ci">Voice → Whisper API → text on job</div><div class="ci">FCM + APNS push · Biometric lock</div><div class="ci">Glove mode: all targets ≥ 48×48px</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Phase 2 -->
+    <section class="spec-section" id="p-phase2">
+      <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Phase 2 — Growth <span class="badge bp2" style="font-size:11px;margin-left:6px">After first 50 customers</span></h2></div>
+      <div class="g3">
+        <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Scheduling &amp; dispatch <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Weekly calendar — drag-and-drop jobs</div><div class="ci">Conflict detection for double-booked crew</div><div class="ci">Travel time estimation (Google Maps)</div><div class="ci">Auto-reminder SMS/email to client (24h)</div><div class="ci">Google Calendar two-way sync (OAuth)</div><div class="ci">Recurring job support</div></div></div>
+        <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Material &amp; inventory <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Stock catalog: name, category, unit, cost</div><div class="ci">On-hand quantity + reorder threshold</div><div class="ci">Low-stock alert when threshold crossed</div><div class="ci">Per-job material assignment + auto-deduct</div><div class="ci">Cost-vs-quoted variance report per job</div><div class="ci">Supplier directory + PO log</div></div></div>
+        <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Dashboard &amp; reporting <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Revenue by week / month / quarter</div><div class="ci">Most profitable job types by margin</div><div class="ci">Receivables aging: 30 / 60 / 90d</div><div class="ci">Top customers by LTV</div><div class="ci">Material cost as % of revenue</div><div class="ci">Tax-ready CSV export</div><div class="ci">QuickBooks Online sync</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Phase 3 -->
+    <section class="spec-section" id="p-phase3">
+      <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">Phase 3 — Compliance &amp; pro <span class="badge bp3" style="font-size:11px;margin-left:6px">ICP #3 unlock</span></h2></div>
+      <div class="g4">
+        <div class="card p3"><div class="card-title"><span class="cdot p3"></span>Cert tracker <span class="badge bp3">P3</span></div><div class="items"><div class="ci">Cert record per welder (type, process)</div><div class="ci">Types: AWS D1.1, CWI, OSHA 10/30</div><div class="ci">Alerts: 90d / 30d / 7d before expiry</div><div class="ci">Document upload (PDF/image)</div><div class="ci">Status: Active / Expiring / Expired</div></div></div>
+        <div class="card p3"><div class="card-title"><span class="cdot p3"></span>WPS library <span class="badge bp3">P3</span></div><div class="items"><div class="ci">WPS record: process, metal, position</div><div class="ci">Attach WPS to job type</div><div class="ci">Pre-qualified WPS templates</div><div class="ci">AWS D1.1 / D1.8 reference data</div></div></div>
+        <div class="card p3"><div class="card-title"><span class="cdot p3"></span>Compliance export <span class="badge bp3">P3</span></div><div class="items"><div class="ci">Package builder per job</div><div class="ci">Select: certs + WPS + inspection notes</div><div class="ci">PDF bundle compiled + emailed</div><div class="ci">Job-linked document archive</div></div></div>
+        <div class="card p3"><div class="card-title"><span class="cdot p3"></span>Photo system <span class="badge bp3">P3</span></div><div class="items"><div class="ci">Auto-tag: job, stage, user, timestamp</div><div class="ci">Gallery view by job or customer</div><div class="ci">Attach to quotes / invoices</div><div class="ci">Presigned S3 share link</div><div class="ci">100-photo cap (Starter/Pro)</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Phase 4 -->
+    <section class="spec-section" id="p-phase4">
+      <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Phase 4 — Scale <span class="badge bp4" style="font-size:11px;margin-left:6px">Post product-market fit</span></h2></div>
+      <div class="g3">
+        <div class="card p4"><div class="card-title"><span class="cdot p4"></span>Shop website builder <span class="badge bp4">P4</span></div><div class="items"><div class="ci">Hosted: {shop}.weldops.app</div><div class="ci">Pages: About, Services, Gallery, Contact</div><div class="ci">Quote form → CRM auto-create</div><div class="ci">Gallery from job photos</div><div class="ci">Custom domain (CNAME) support</div></div></div>
+        <div class="card p4"><div class="card-title"><span class="cdot p4"></span>Review &amp; reputation <span class="badge bp4">P4</span></div><div class="items"><div class="ci">Auto-review request after invoice paid</div><div class="ci">Google review deep-link SMS</div><div class="ci">Internal NPS per job</div><div class="ci">Negative NPS suppresses external request</div></div></div>
+        <div class="card p4"><div class="card-title"><span class="cdot p4"></span>Crew management <span class="badge bp4">P4</span></div><div class="items"><div class="ci">Time clock per job per crew member</div><div class="ci">Labor cost actual vs quoted</div><div class="ci">Weekly hours summary</div><div class="ci">Payroll CSV export (ADP/Gusto)</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Data model -->
+    <section class="spec-section" id="p-data">
+      <div class="sec-hd"><span class="sec-num">06</span><h2 class="sec-title">Data model — core entities</h2></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Entity</th><th>Key fields</th></tr></thead>
+          <tbody>
+            <tr><td class="tn">Organization</td><td class="tf">id · name · slug · plan · stripe_customer_id · stripe_subscription_id · settings_json · trial_ends_at · created_at</td></tr>
+            <tr><td class="tn">User</td><td class="tf">id · org_id <span class="fk">FK</span> · auth_uid · name · email · phone · role (owner|crew|field) · is_active</td></tr>
+            <tr><td class="tn">Customer</td><td class="tf">id · org_id · name · phone · email · address · city · state · zip · type · tags[] · notes · referral_source</td></tr>
+            <tr><td class="tn">Quote</td><td class="tf">id · org_id · customer_id <span class="fk">FK</span> · created_by <span class="fk">FK</span> · status · line_items JSON · labor_hours · labor_rate · markup_pct · tax_pct · subtotal · total · expires_at · sent_at · pdf_url · token</td></tr>
+            <tr><td class="tn">Job</td><td class="tf">id · org_id · quote_id <span class="fk">FK</span> · customer_id <span class="fk">FK</span> · title · status · assigned_to UUID[] · scheduled_at · due_at · deposit_amount · deposit_paid · notes</td></tr>
+            <tr><td class="tn">Invoice</td><td class="tf">id · org_id · job_id <span class="fk">FK</span> · quote_id <span class="fk">FK</span> · customer_id · status · line_items JSON · subtotal · tax · discount · total · amount_paid · balance_due · stripe_payment_intent_id · sent_at · paid_at · token</td></tr>
+            <tr><td class="tn">Payment</td><td class="tf">id · invoice_id <span class="fk">FK</span> · org_id · method (card|ach|cash|check|venmo|other) · amount · stripe_charge_id · recorded_by <span class="fk">FK</span> · recorded_at</td></tr>
+            <tr><td class="tn">MaterialItem</td><td class="tf">id · org_id · name · category · unit · unit_cost · qty_on_hand · reorder_threshold · supplier_id <span class="fk">FK</span></td></tr>
+            <tr><td class="tn">JobMaterial</td><td class="tf">id · job_id <span class="fk">FK</span> · material_id <span class="fk">FK</span> · org_id · qty_allocated · qty_used · unit_cost_at_time · cost_actual</td></tr>
+            <tr><td class="tn">Photo</td><td class="tf">id · job_id <span class="fk">FK</span> · org_id · s3_key · stage · caption · uploaded_by <span class="fk">FK</span> · taken_at</td></tr>
+            <tr><td class="tn">Certification</td><td class="tf">id · org_id · user_id <span class="fk">FK</span> · cert_type · standard · process · issued_at · expires_at · document_url</td></tr>
+            <tr><td class="tn">WPS</td><td class="tf">id · org_id · title · process · base_metal · filler_metal · position · document_url</td></tr>
+            <tr><td class="tn">ScheduleEvent</td><td class="tf">id · org_id · job_id <span class="fk">FK</span> · assigned_to UUID[] · starts_at · ends_at · is_recurring · recurrence_rule · gcal_event_id</td></tr>
+            <tr><td class="tn">Notification</td><td class="tf">id · org_id · recipient_id <span class="fk">FK</span> · type · entity_type · entity_id · channel (email|sms|push) · template_key · sent_at · status</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="g2">
+        <div class="card inf">
+          <div class="card-title"><span class="cdot inf"></span>Entity relationships</div>
+          <div class="flow-list">
+            <div class="flow-row"><span class="pill">Customer</span><span class="arrow">→ 1:many →</span><span class="pill">Quotes</span><span class="arrow">→ 1:1 →</span><span class="pill">Job</span><span class="arrow">→ 1:1 →</span><span class="pill">Invoice</span></div>
+            <div class="flow-row"><span class="pill">Job</span><span class="arrow">→ 1:many →</span><span class="pill">Photos</span></div>
+            <div class="flow-row"><span class="pill">Job</span><span class="arrow">→ 1:many →</span><span class="pill">JobMaterials</span><span class="arrow">→ many:1 →</span><span class="pill">MaterialItem</span></div>
+            <div class="flow-row"><span class="pill">Invoice</span><span class="arrow">→ 1:many →</span><span class="pill">Payments</span></div>
+            <div class="flow-row"><span class="pill">User</span><span class="arrow">→ 1:many →</span><span class="pill">Certifications</span></div>
+          </div>
+        </div>
+        <div class="card inf">
+          <div class="card-title"><span class="cdot inf"></span>Automated triggers</div>
+          <div class="flow-list">
+            <div class="flow-row"><span class="pill">Quote approved</span><span class="arrow">→ auto-creates →</span><span class="pill">Job</span></div>
+            <div class="flow-row"><span class="pill">Job → Done</span><span class="arrow">→ auto-drafts →</span><span class="pill">Invoice</span></div>
+            <div class="flow-row"><span class="pill">Stripe webhook paid</span><span class="arrow">→ fires →</span><span class="pill">Receipt</span></div>
+            <div class="flow-row"><span class="pill">Cert expiring 90d</span><span class="arrow">→ queues →</span><span class="pill">Alert</span></div>
+            <div class="flow-row"><span class="pill">Invoice overdue 7d</span><span class="arrow">→ queues →</span><span class="pill">Reminder</span></div>
+            <div class="flow-row"><span class="pill">Material qty low</span><span class="arrow">→ queues →</span><span class="pill">Low-stock alert</span></div>
+            <div class="flow-row"><span class="pill">Job assigned</span><span class="arrow">→ sends →</span><span class="pill">Push to crew</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P: Background services -->
+    <section class="spec-section" id="p-services">
+      <div class="sec-hd"><span class="sec-num">07</span><h2 class="sec-title">Background services &amp; job queues</h2></div>
+      <div class="g3">
+        <div class="card svc"><div class="card-title"><span class="cdot svc"></span>Notification engine</div><div class="items"><div class="ci">BullMQ queue: "notifications" (Redis-backed)</div><div class="ci">Email: AWS SES or Postmark</div><div class="ci">SMS: Twilio (opt-out CAN-SPAM handled)</div><div class="ci">Push: Firebase Cloud Messaging</div><div class="ci">Handlebars template engine</div><div class="ci">3 retries with exponential backoff</div><div class="ci">Delivery status tracked per notification</div></div></div>
+        <div class="card svc"><div class="card-title"><span class="cdot svc"></span>Document generation</div><div class="items"><div class="ci">BullMQ queue: "documents"</div><div class="ci">Puppeteer headless Chrome → PDF</div><div class="ci">Quote PDF + Invoice PDF templates</div><div class="ci">Compliance package: WeasyPrint sidecar</div><div class="ci">S3 upload → presigned URL returned</div><div class="ci">Regenerate on field update (versioned)</div></div></div>
+        <div class="card svc"><div class="card-title"><span class="cdot svc"></span>Scheduled cron jobs</div><div class="items"><div class="ci">Daily 6am: cert expiration sweep (90/30/7d)</div><div class="ci">Daily 8am: invoice overdue check</div><div class="ci">Daily 9am: quote expiration check</div><div class="ci">Weekly Mon: receivables aging summary to owner</div><div class="ci">Nightly: usage analytics aggregation</div><div class="ci">Hourly: offline sync conflict resolver</div><div class="ci">Real-time: Stripe webhook listener</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Infra -->
+    <section class="spec-section" id="p-infra">
+      <div class="sec-hd"><span class="sec-num">08</span><h2 class="sec-title">Infrastructure &amp; integrations</h2></div>
+      <p class="sec-desc">Phase 1 infrastructure is deliberately lean — Railway + Supabase under $50/month until revenue justifies scaling. All choices are replaceable without application code changes.</p>
+      <div class="g4">
+        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Database + storage</div><div class="items"><div class="ci">PostgreSQL 16 — Supabase (Phase 1)</div><div class="ci">Row-level security on every table</div><div class="ci">Prisma ORM + versioned migrations</div><div class="ci">AWS S3 — photos, PDFs, docs</div><div class="ci">Redis/Upstash — queues + cache</div><div class="ci">Read replica at ~500 orgs (Phase 2)</div></div></div>
+        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Hosting + ops</div><div class="items"><div class="ci">API: Railway → AWS ECS (Phase 3)</div><div class="ci">Web SPA: Vercel</div><div class="ci">CDN + DDoS: Cloudflare (free)</div><div class="ci">Errors: Sentry (free tier)</div><div class="ci">Logs: Logtail or Axiom</div><div class="ci">CI/CD: GitHub Actions</div></div></div>
+        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>External integrations</div><div class="items"><div class="ci">Stripe Connect + Billing — P1</div><div class="ci">Twilio (SMS) — P1</div><div class="ci">Firebase (push) — P1</div><div class="ci">Whisper API (voice→text) — P1</div><div class="ci">QuickBooks Online API — P2</div><div class="ci">Google Calendar API — P2</div><div class="ci">Metal price feed API — P3</div></div></div>
+        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Billing + admin</div><div class="items"><div class="ci">Feature flags per plan (DB-driven)</div><div class="ci">Seat + storage quota enforced at API</div><div class="ci">14-day free trial, no card required</div><div class="ci">Dunning: failed → 3x retry over 7 days</div><div class="ci">Cancel → immediate downgrade to free</div><div class="ci">Admin panel: Retool (internal only)</div></div></div>
+      </div>
+    </section>
+
+    <!-- P: Stack decisions -->
+    <section class="spec-section" id="p-stack">
+      <div class="sec-hd"><span class="sec-num">09</span><h2 class="sec-title">Tech stack decision log</h2></div>
+      <p class="sec-desc">Every major technology choice with the reasoning and alternatives. Update this when decisions change. Hand to any developer or technical co-founder.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:180px">Choice</th><th>Why we chose it</th><th style="width:160px">Alternatives</th></tr></thead>
+          <tbody>
+            <tr class="layer-row"><td colspan="3">Frontend</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">React + Vite</td><td>Largest talent pool. Vite HMR makes vibe-coding faster. Ecosystem depth (React Query, Zustand, Radix) covers all needs.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Vue 3, Svelte, Next.js</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">React Native</td><td>Single codebase iOS + Android. Shared logic with web. Expo simplifies builds. Mobile is the primary device for this audience.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Flutter, native, PWA</td></tr>
+            <tr class="layer-row"><td colspan="3">Backend</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Node.js + Express</td><td>Same language as frontend. Massive npm ecosystem. Battle-tested for REST APIs. Can migrate to Fastify later.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Python/FastAPI, Go, Rails</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">PostgreSQL</td><td>Row-level security is the cleanest multi-tenant implementation available. NOT MongoDB — schema discipline matters for financial data.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">MongoDB, MySQL, PlanetScale</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Prisma ORM</td><td>Auto-generates TypeScript types from schema. Migrations are versioned. SQL injection prevention by default. Schema is source of truth.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Drizzle, Knex, TypeORM</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Supabase (P1)</td><td>Postgres + auth + storage + RLS in one managed service. Free tier handles Phase 1. Ejects cleanly. Saves 2–3 weeks of auth setup.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Auth0, Firebase, custom JWT</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">BullMQ + Redis</td><td>Queues need retry logic. BullMQ is the most mature Node.js queue. Upstash serverless Redis eliminates ops overhead at P1 scale.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Inngest, Trigger.dev, SQS</td></tr>
+            <tr class="layer-row"><td colspan="3">Payments &amp; comms</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Stripe Connect</td><td>The only viable option for a platform model where each shop collects their own money. Handles KYC, payouts, disputes, PCI. Non-negotiable.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">PayPal, Square, Braintree</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Twilio</td><td>Gold standard for SMS. Superior deliverability. Opt-out built in. This audience reads texts, not emails — SMS is critical.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">AWS SNS, Vonage, Telnyx</td></tr>
+            <tr class="layer-row"><td colspan="3">Infrastructure</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">Railway (P1)</td><td>Zero DevOps overhead for early-stage. Git push to deploy. $5–20/month at P1 scale. Migrate to AWS ECS when infra cost &gt; ~$200/month.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Render, Fly.io, Beanstalk</td></tr>
+            <tr><td class="tn" style="font-family:var(--font-mono);font-size:11px">AWS S3</td><td>Industry standard. Presigned URLs for secure direct uploads. Lifecycle policies. No viable alternative at this price + reliability.</td><td style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">Cloudflare R2, Backblaze B2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- P: Build sequence -->
+    <section class="spec-section" id="p-build">
+      <div class="sec-hd"><span class="sec-num">10</span><h2 class="sec-title">Build sequence &amp; effort estimates</h2></div>
+      <p class="sec-desc">Effort rated 1–5 (1 = one focused day, 5 = 2–3 weeks). Assumes single experienced full-stack developer or LLM-assisted vibe-coding workflow.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:60px">Phase</th><th style="width:160px">Module</th><th style="width:90px">Effort</th><th>Build notes</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>DB schema + auth</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>Set up Supabase, Prisma schema, RLS policies, JWT auth. Start here — everything depends on this.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Customer CRM</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>CRUD API + basic list/detail views. Build second — every other entity references Customer.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Quote builder</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></td><td>Most complex P1 module. Line item editor, auto-calc, status machine, PDF queue, email/SMS, public e-sign URL.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Job management</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Kanban board, list view, crew assignment, status transitions, S3 photo upload. Auto-create from quote trigger.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Invoicing</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Auto-generate from quote, PDF reuse, Stripe link, status machine, overdue reminder queue job.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Payments (Stripe)</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Stripe Connect onboarding, payment intent, webhook handler (idempotency key required), receipt trigger.</td></tr>
+            <tr><td><span class="badge bp1">P1</span></td><td><strong>Mobile app core</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></td><td>Highest P1 effort. Offline SQLite sync is the hard part (WatermelonDB). Push, camera, glove mode. Can parallel-track with web.</td></tr>
+            <tr><td><span class="badge bp2">P2</span></td><td><strong>Dashboard</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>Aggregate queries on existing data. High perceived value, low effort. Use Recharts or Chart.js.</td></tr>
+            <tr><td><span class="badge bp2">P2</span></td><td><strong>Material &amp; inventory</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Stock catalog CRUD, per-job assignment, auto-deduct, low-stock cron check.</td></tr>
+            <tr><td><span class="badge bp2">P2</span></td><td><strong>Scheduling</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></td><td>Calendar view (FullCalendar.js), drag-drop, conflict detection, Google Calendar OAuth, recurring logic.</td></tr>
+            <tr><td><span class="badge bp2">P2</span></td><td><strong>QuickBooks sync</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>QBO OAuth, invoice sync push, payment sync, rate limit + token refresh handling.</td></tr>
+            <tr><td><span class="badge bp3">P3</span></td><td><strong>Cert tracker</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>CRUD + file upload, expiration cron, alert templates. Lower effort, high ICP #3 value.</td></tr>
+            <tr><td><span class="badge bp3">P3</span></td><td><strong>WPS + compliance PDF</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>WPS CRUD, job association, compliance package builder + PDF queue job.</td></tr>
+            <tr><td><span class="badge bp3">P3</span></td><td><strong>Photo system</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>Extends existing photo upload. Gallery, stage tags, attach-to-PDF, share URLs, storage quota.</td></tr>
+            <tr><td><span class="badge bp4">P4</span></td><td><strong>Website builder</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></td><td>Subdomain routing (Cloudflare), template engine, quote form → CRM, photo gallery, custom domain CNAME.</td></tr>
+            <tr><td><span class="badge bp4">P4</span></td><td><strong>Reviews + crew mgmt</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Review trigger on payment, SMS deep-link, NPS table. Time clock, hours aggregation, payroll CSV export.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warning"><strong>Total Phase 1 effort estimate</strong>Experienced solo developer: 8–14 weeks. LLM-assisted vibe-coding with Claude Code: estimated 4–7 weeks for functional Phase 1 web + basic mobile. The mobile offline sync adds the most complexity — budget 2 weeks for that alone regardless of approach.</div>
+    </section>
+
+  </div><!-- /content-wrap -->
+</div><!-- /page-platform -->
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <strong>WeldOps</strong> &nbsp;·&nbsp; Project Hub v1.0 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Market Research · Brand Guide · Platform Specification
+</footer>
+
+
+<script>
+/* ── Section switching ──────────────────────────────────── */
+function switchSection(id, tabEl) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sub-nav').forEach(n => n.classList.remove('visible'));
+
+  document.getElementById('page-' + id).classList.add('active');
+  tabEl.classList.add('active');
+  document.getElementById('subnav-' + id).classList.add('visible');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Sub-nav scroll ─────────────────────────────────────── */
+function scrollTo_(sectionId, linkEl) {
+  const el = document.getElementById(sectionId);
+  if (!el) return;
+  const offset = 54 + 40; // header + subnav height
+  const y = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+  document.querySelectorAll('.sub-link').forEach(l => l.classList.remove('active'));
+  linkEl.classList.add('active');
+}
+
+/* ── Intersection observer for sub-link highlight ──────── */
+function setupObserver(pageId, subnavId) {
+  const page = document.getElementById(pageId);
+  if (!page) return;
+  const sections = page.querySelectorAll('.spec-section[id]');
+  const subnav   = document.getElementById(subnavId);
+  if (!subnav) return;
+
+  const obs = new IntersectionObserver((entries) => {
+    const active = document.getElementById(pageId).classList.contains('active');
+    if (!active) return;
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        subnav.querySelectorAll('.sub-link').forEach(l => l.classList.remove('active'));
+        const match = subnav.querySelector(`.sub-link[onclick*="${id}"]`);
+        if (match) {
+          match.classList.add('active');
+          match.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-54px 0px -60% 0px' });
+
+  sections.forEach(s => obs.observe(s));
+}
+
+setupObserver('page-research', 'subnav-research');
+setupObserver('page-brand',    'subnav-brand');
+setupObserver('page-platform', 'subnav-platform');
+</script>
+</body>
+</html>
