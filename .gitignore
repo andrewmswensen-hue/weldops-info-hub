@@ -1,0 +1,30 @@
+# macOS noise
+.DS_Store
+
+# ------------------------------------------------------------------
+# INTERNAL / STRATEGIC DOCS — DO NOT PUBLISH TO GITHUB
+# This repo is public (required for GitHub Pages on the free plan).
+# Only the info-hub HTML files are intentionally public.
+# Everything below stays local because it's working context for
+# Claude Code sessions, not for the world to see.
+# ------------------------------------------------------------------
+
+# Project context & engineering spec
+CLAUDE.md
+
+# Source research docs (the .docx originals)
+WeldOps_Brand_Guide.docx
+WeldOps_Market_Research.docx
+WeldOps_Platform_Spec.docx
+WeldOps_Platform_Spec.html
+
+# Wireframe (design reference — not for public)
+weldops_wireframe.html
+
+# Condensed discipline-specific references for Claude Code
+WeldOps_GTM_Playbook.md
+WeldOps_Design_System.md
+WeldOps_UX_Flows.md
+
+# Claude Code local state (session history, worktrees, memory)
+.claude/
