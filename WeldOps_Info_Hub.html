@@ -752,6 +752,39 @@ tr:nth-child(even) td { background: #F9F9F8; }
 /* Small utility */
 .mock-hint { font-size: 9px; color: var(--muted); font-family: var(--font-mono); text-align: center; margin-top: 6px; letter-spacing: 0.3px; }
 
+/* Price-alert banner (used on the Materials mockup) */
+.mock-alert {
+  background: #FEF3E2;
+  border-left: 3px solid var(--amber);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 10.5px;
+  color: #7A3E0B;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.mock-alert strong { color: #92400E; font-weight: 600; }
+.mock-alert .link { text-decoration: underline; color: #92400E; }
+
+/* Price-trend chart (SVG) */
+.mock-chart {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px;
+}
+.mock-chart-head {
+  font-size: 10px; font-weight: 600; color: var(--navy);
+  margin-bottom: 6px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.mock-chart-head .mono { font-family: var(--font-mono); font-weight: 400; font-size: 8.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.mock-chart-svg { width: 100%; height: 80px; display: block; }
+.mock-chart-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; font-size: 9px; }
+.mock-legend-item { display: flex; align-items: center; gap: 4px; color: var(--text); }
+.mock-legend-dot { width: 10px; height: 2.5px; border-radius: 1px; display: inline-block; }
+.mock-trend-up   { color: #DC2626; font-weight: 500; }
+.mock-trend-down { color: #16A34A; font-weight: 500; }
+.mock-trend-flat { color: var(--muted); font-weight: 500; }
+
 @media (max-width: 580px) {
   .phone-frame { max-width: 260px; }
   .web-sidebar { width: 86px; }
@@ -860,6 +893,7 @@ tr:nth-child(even) td { background: #F9F9F8; }
     <span class="sub-link" onclick="scrollTo_('m-quotes', this)">Quote builder</span>
     <span class="sub-link" onclick="scrollTo_('m-jobs', this)">Jobs board</span>
     <span class="sub-link" onclick="scrollTo_('m-invoices', this)">Invoicing</span>
+    <span class="sub-link" onclick="scrollTo_('m-materials', this)">Materials &amp; futures</span>
   </div>
 </nav>
 
@@ -1366,7 +1400,7 @@ tr:nth-child(even) td { background: #F9F9F8; }
       <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Phase 2 — Growth <span class="badge bp2" style="font-size:11px;margin-left:6px">After first 50 customers</span></h2></div>
       <div class="g3">
         <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Scheduling &amp; dispatch <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Weekly calendar — drag-and-drop jobs</div><div class="ci">Conflict detection for double-booked crew</div><div class="ci">Travel time estimation (Google Maps)</div><div class="ci">Auto-reminder SMS/email to client (24h)</div><div class="ci">Google Calendar two-way sync (OAuth)</div><div class="ci">Recurring job support</div></div></div>
-        <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Material &amp; inventory <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Stock catalog: name, category, unit, cost</div><div class="ci">On-hand quantity + reorder threshold</div><div class="ci">Low-stock alert when threshold crossed</div><div class="ci">Per-job material assignment + auto-deduct</div><div class="ci">Cost-vs-quoted variance report per job</div><div class="ci">Supplier directory + PO log</div></div></div>
+        <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Material &amp; inventory <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Stock catalog: name, category, unit, cost</div><div class="ci">On-hand quantity + reorder threshold</div><div class="ci">Low-stock alert when threshold crossed</div><div class="ci">Per-job material assignment + auto-deduct</div><div class="ci">Cost-vs-quoted variance report per job</div><div class="ci">Supplier directory + PO log</div><div class="ci"><strong>CME steel + LME aluminum futures overlay</strong></div><div class="ci">30-day price trend per metal type</div><div class="ci">Alert: pending quotes at margin risk</div><div class="ci">1-tap "lock prices" on active quotes</div></div></div>
         <div class="card p2"><div class="card-title"><span class="cdot p2"></span>Dashboard &amp; reporting <span class="badge bp2">P2</span></div><div class="items"><div class="ci">Revenue by week / month / quarter</div><div class="ci">Most profitable job types by margin</div><div class="ci">Receivables aging: 30 / 60 / 90d</div><div class="ci">Top customers by LTV</div><div class="ci">Material cost as % of revenue</div><div class="ci">Tax-ready CSV export</div><div class="ci">QuickBooks Online sync</div></div></div>
       </div>
     </section>
@@ -1459,7 +1493,7 @@ tr:nth-child(even) td { background: #F9F9F8; }
       <div class="g4">
         <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Database + storage</div><div class="items"><div class="ci">PostgreSQL 16 — Supabase (Phase 1)</div><div class="ci">Row-level security on every table</div><div class="ci">Prisma ORM + versioned migrations</div><div class="ci">AWS S3 — photos, PDFs, docs</div><div class="ci">Redis/Upstash — queues + cache</div><div class="ci">Read replica at ~500 orgs (Phase 2)</div></div></div>
         <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Hosting + ops</div><div class="items"><div class="ci">API: Railway → AWS ECS (Phase 3)</div><div class="ci">Web SPA: Vercel</div><div class="ci">CDN + DDoS: Cloudflare (free)</div><div class="ci">Errors: Sentry (free tier)</div><div class="ci">Logs: Logtail or Axiom</div><div class="ci">CI/CD: GitHub Actions</div></div></div>
-        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>External integrations</div><div class="items"><div class="ci">Stripe Connect + Billing — P1</div><div class="ci">Twilio (SMS) — P1</div><div class="ci">Firebase (push) — P1</div><div class="ci">Whisper API (voice→text) — P1</div><div class="ci">QuickBooks Online API — P2</div><div class="ci">Google Calendar API — P2</div><div class="ci">Metal price feed API — P3</div></div></div>
+        <div class="card inf"><div class="card-title"><span class="cdot inf"></span>External integrations</div><div class="items"><div class="ci">Stripe Connect + Billing — P1</div><div class="ci">Twilio (SMS) — P1</div><div class="ci">Firebase (push) — P1</div><div class="ci">Whisper API (voice→text) — P1</div><div class="ci">QuickBooks Online API — P2</div><div class="ci">Google Calendar API — P2</div><div class="ci">CME steel + LME aluminum futures — P2</div></div></div>
         <div class="card inf"><div class="card-title"><span class="cdot inf"></span>Billing + admin</div><div class="items"><div class="ci">Feature flags per plan (DB-driven)</div><div class="ci">Seat + storage quota enforced at API</div><div class="ci">14-day free trial, no card required</div><div class="ci">Dunning: failed → 3x retry over 7 days</div><div class="ci">Cancel → immediate downgrade to free</div><div class="ci">Admin panel: Retool (internal only)</div></div></div>
       </div>
     </section>
@@ -1508,7 +1542,7 @@ tr:nth-child(even) td { background: #F9F9F8; }
             <tr><td><span class="badge bp1">P1</span></td><td><strong>Payments (Stripe)</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Stripe Connect onboarding, payment intent, webhook handler (idempotency key required), receipt trigger.</td></tr>
             <tr><td><span class="badge bp1">P1</span></td><td><strong>Mobile app core</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></td><td>Highest P1 effort. Offline SQLite sync is the hard part (WatermelonDB). Push, camera, glove mode. Can parallel-track with web.</td></tr>
             <tr><td><span class="badge bp2">P2</span></td><td><strong>Dashboard</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>Aggregate queries on existing data. High perceived value, low effort. Use Recharts or Chart.js.</td></tr>
-            <tr><td><span class="badge bp2">P2</span></td><td><strong>Material &amp; inventory</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Stock catalog CRUD, per-job assignment, auto-deduct, low-stock cron check.</td></tr>
+            <tr><td><span class="badge bp2">P2</span></td><td><strong>Material &amp; inventory</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>Stock catalog CRUD, per-job assignment, auto-deduct, low-stock cron check. <strong>Futures overlay (CME + LME) with pending-quote margin alerts and 1-tap price lock.</strong></td></tr>
             <tr><td><span class="badge bp2">P2</span></td><td><strong>Scheduling</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></td><td>Calendar view (FullCalendar.js), drag-drop, conflict detection, Google Calendar OAuth, recurring logic.</td></tr>
             <tr><td><span class="badge bp2">P2</span></td><td><strong>QuickBooks sync</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></td><td>QBO OAuth, invoice sync push, payment sync, rate limit + token refresh handling.</td></tr>
             <tr><td><span class="badge bp3">P3</span></td><td><strong>Cert tracker</strong></td><td><span class="ep"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></td><td>CRUD + file upload, expiration cron, alert templates. Lower effort, high ICP #3 value.</td></tr>
@@ -1537,8 +1571,8 @@ tr:nth-child(even) td { background: #F9F9F8; }
       <h1 class="hero-title">Web + mobile interface samples</h1>
       <p class="hero-sub">Visual samples of the key screens as they will look in both the shop owner's web portal and the field-ready mobile app. All example data is illustrative — shop, customers, and job amounts are for demonstration only.</p>
       <div class="hero-stats">
-        <div><span class="stat-num">4</span><span class="stat-label">Core features shown</span></div>
-        <div><span class="stat-num">8</span><span class="stat-label">Screens rendered</span></div>
+        <div><span class="stat-num">5</span><span class="stat-label">Core features shown</span></div>
+        <div><span class="stat-num">10</span><span class="stat-label">Screens rendered</span></div>
         <div><span class="stat-num">48px</span><span class="stat-label">Glove-mode tap target</span></div>
       </div>
     </div>
@@ -1959,6 +1993,137 @@ tr:nth-child(even) td { background: #F9F9F8; }
       </div>
 
       <p class="feature-caption"><strong>What this shows:</strong> on the owner's side, aging is color-coded (green paid, amber viewed, red overdue) with a single glance summary up top. The customer sees the pay screen with a full-width, glove-sized "Pay" button — Stripe, ACH, and Apple Pay supported. Every paid invoice automatically marks its source job Complete and fires a receipt to the customer.</p>
+    </section>
+
+
+    <!-- ══════ FEATURE 5: MATERIALS + FUTURES ══════ -->
+    <section class="spec-section" id="m-materials">
+      <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Materials &amp; metal futures</h2></div>
+      <p class="sec-desc">Track shop stock <em>and</em> — the hidden margin killer — see where steel, aluminum, and stainless prices are heading <strong>before</strong> a quote goes out. WeldOps pulls CME steel and LME aluminum futures daily, overlays a 30-day trend on every material in the catalog, and flags pending quotes where the projected price movement would eat into margin. Shop owners can lock prices or re-quote in one tap. No competing product in this segment offers this.</p>
+
+      <div class="device-row">
+        <!-- Web frame -->
+        <div>
+          <div class="device-label">Web — Inventory + futures overlay</div>
+          <div class="web-frame">
+            <div class="web-chrome">
+              <span class="web-dot wd-r"></span><span class="web-dot wd-y"></span><span class="web-dot wd-g"></span>
+              <span class="web-url">app.weld-ops.com/materials</span>
+            </div>
+            <div class="web-canvas">
+              <aside class="web-sidebar">
+                <div class="web-sidebar-logo">Weld<span>Ops</span></div>
+                <div class="web-sidebar-section">Main</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Dashboard</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Jobs</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Quotes</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Schedule</div>
+                <div class="web-sidebar-section">Business</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Customers</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Invoices</div>
+                <div class="web-sidebar-item active"><span class="web-sb-icon"></span>Materials</div>
+              </aside>
+              <div class="web-main">
+                <div class="web-main-head">
+                  <div class="web-main-title">Materials <span class="sub">14 items · $3,840 on hand</span></div>
+                  <div class="web-main-btn">+ Add stock</div>
+                </div>
+
+                <div class="mock-alert">
+                  <strong>Mild steel futures ↑ 4.2% over next 14 days.</strong> 3 pending quotes would come in under margin at projected prices — <span class="link">review &amp; lock</span>
+                </div>
+
+                <div class="mock-grid-4">
+                  <div class="mock-stat"><div class="mock-stat-label">On-hand value</div><div class="mock-stat-value">$3,840</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Items low</div><div class="mock-stat-value" style="color:#D97706;">3</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Used this mo</div><div class="mock-stat-value">$1,240</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Futures save</div><div class="mock-stat-value" style="color:#16A34A;">$380</div><div class="mock-stat-sub up">lock today</div></div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:10px;">
+                  <div class="mock-panel" style="margin-top:0;">
+                    <div class="mock-panel-hd">Stock levels</div>
+                    <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">2x2 sq tube 14ga</div><div class="mock-row-meta">Steel · 40ft · $1.85/ft</div></div><span class="mock-pill green">Good</span></div>
+                    <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">MIG wire ER70S</div><div class="mock-row-meta">Consumable · 2 spools</div></div><span class="mock-pill amber">Low</span></div>
+                    <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Grinding discs 4.5"</div><div class="mock-row-meta">Consumable · 4 pcs</div></div><span class="mock-pill amber">Low</span></div>
+                    <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">1" sq tube 16ga</div><div class="mock-row-meta">Steel · 1 stick (20ft)</div></div><span class="mock-pill red">Critical</span></div>
+                    <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">3/16" A36 plate</div><div class="mock-row-meta">Steel · 48 sqft</div></div><span class="mock-pill green">Good</span></div>
+                  </div>
+                  <div class="mock-chart">
+                    <div class="mock-chart-head">Metal futures · 30 day<span class="mono">CME + LME</span></div>
+                    <svg class="mock-chart-svg" viewBox="0 0 240 80" preserveAspectRatio="none">
+                      <line x1="0" y1="40" x2="240" y2="40" stroke="#E5E7EB" stroke-dasharray="2,3" stroke-width="0.5"/>
+                      <polyline points="0,55 30,53 60,50 90,45 120,40 150,34 180,28 210,22 240,18" fill="none" stroke="#1F3A73" stroke-width="1.5"/>
+                      <polyline points="0,40 30,41 60,39 90,41 120,38 150,40 180,39 210,40 240,39" fill="none" stroke="#D97706" stroke-width="1.5"/>
+                      <polyline points="0,30 30,32 60,35 90,38 120,42 150,45 180,48 210,51 240,55" fill="none" stroke="#6B7280" stroke-width="1.5"/>
+                    </svg>
+                    <div class="mock-chart-legend">
+                      <div class="mock-legend-item"><span class="mock-legend-dot" style="background:#1F3A73;"></span>Mild steel <span class="mock-trend-up">↑4.2%</span></div>
+                      <div class="mock-legend-item"><span class="mock-legend-dot" style="background:#D97706;"></span>Aluminum <span class="mock-trend-flat">→0.3%</span></div>
+                      <div class="mock-legend-item"><span class="mock-legend-dot" style="background:#6B7280;"></span>Stainless <span class="mock-trend-down">↓1.8%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Usage by job — this month<span class="mono">$1,240 total</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Thompson trailer</div><div class="mock-row-meta">2x2 tube · plate · hardware</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$312</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Metro office stairs</div><div class="mock-row-meta">A36 plate · angle · bolts</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$490</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Davis exhaust</div><div class="mock-row-meta">SS tube · MIG wire</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$180</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone frame -->
+        <div>
+          <div class="device-label">Mobile — Stock + price alerts</div>
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-status"><span>9:41</span><div class="phone-status-icons"><span class="phone-signal"></span><span class="phone-battery"></span></div></div>
+              <div class="phone-app">
+                <div class="phone-app-head">
+                  <div class="phone-app-ham"><span></span><span></span><span></span></div>
+                  <div class="phone-app-title">Materials</div>
+                  <div class="phone-app-action">+</div>
+                </div>
+
+                <div class="mock-alert" style="font-size:9.5px;padding:8px 10px;margin-bottom:10px;"><strong>Mild steel ↑4.2%</strong> next 14d — 3 quotes at risk</div>
+
+                <div class="mock-panel" style="margin-top:0;">
+                  <div class="mock-panel-hd">Low stock<span class="mono">3</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">MIG wire</div><div class="mock-row-meta">2 spools left</div></div><span class="mock-pill amber">Low</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Grind discs</div><div class="mock-row-meta">4 pcs</div></div><span class="mock-pill amber">Low</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">1" sq tube</div><div class="mock-row-meta">1 stick</div></div><span class="mock-pill red">Critical</span></div>
+                </div>
+
+                <div class="mock-chart" style="margin-top:8px;padding:8px;">
+                  <div class="mock-chart-head" style="font-size:9.5px;">30-day trend<span class="mono">CME/LME</span></div>
+                  <svg class="mock-chart-svg" viewBox="0 0 200 60" preserveAspectRatio="none" style="height:52px;">
+                    <line x1="0" y1="30" x2="200" y2="30" stroke="#E5E7EB" stroke-dasharray="2,3" stroke-width="0.5"/>
+                    <polyline points="0,44 25,42 50,38 75,34 100,30 125,25 150,20 175,14 200,10" fill="none" stroke="#1F3A73" stroke-width="1.5"/>
+                    <polyline points="0,30 25,31 50,29 75,31 100,29 125,30 150,29 175,30 200,29" fill="none" stroke="#D97706" stroke-width="1.5"/>
+                    <polyline points="0,22 25,24 50,27 75,30 100,33 125,36 150,39 175,42 200,45" fill="none" stroke="#6B7280" stroke-width="1.5"/>
+                  </svg>
+                  <div style="display:flex;justify-content:space-between;font-size:8.5px;margin-top:5px;">
+                    <span><span class="mock-legend-dot" style="background:#1F3A73;display:inline-block;margin-right:3px;"></span>Steel <span class="mock-trend-up">↑4.2%</span></span>
+                    <span><span class="mock-legend-dot" style="background:#D97706;display:inline-block;margin-right:3px;"></span>Alum <span class="mock-trend-flat">→</span></span>
+                    <span><span class="mock-legend-dot" style="background:#6B7280;display:inline-block;margin-right:3px;"></span>SS <span class="mock-trend-down">↓1.8%</span></span>
+                  </div>
+                </div>
+
+                <div class="phone-cta">Reorder low stock (3)</div>
+                <div class="phone-cta outline">Lock prices on 3 quotes</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-hint">Tap a metal for full trend detail</div>
+        </div>
+      </div>
+
+      <p class="feature-caption"><strong>Why this matters — the hidden-margin story:</strong> you quote a trailer on Monday at $0.92/lb mild steel. By the time the customer signs Thursday, the spot price is $0.96. That's a 4% hit on materials you never noticed — multiplied across every open quote, it's real money. WeldOps pulls <strong>CME steel and LME aluminum futures</strong> daily, surfaces the trend where owners actually make pricing decisions, and lets them <strong>lock prices on pending quotes with one tap</strong> before trends move against them. No competing tool in this segment — Jobber, JobBOSS, QuickBooks, Excel — does this.</p>
     </section>
 
   </div><!-- /content-wrap -->
