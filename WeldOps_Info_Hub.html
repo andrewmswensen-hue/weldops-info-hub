@@ -127,6 +127,7 @@ code { font-family: var(--font-mono); font-size: 0.88em; background: var(--smoke
 .td-brand    { background: var(--amber); }
 .td-platform { background: #86EFAC; }
 .td-mockups  { background: #C084FC; }
+.td-pricing  { background: #F472B6; }
 
 .header-right {
   margin-left: auto;
@@ -837,6 +838,9 @@ tr:nth-child(even) td { background: #F9F9F8; }
       <div class="section-tab" onclick="switchSection('mockups', this)">
         <span class="tab-dot td-mockups"></span>Platform mockups
       </div>
+      <div class="section-tab" onclick="switchSection('pricing', this)">
+        <span class="tab-dot td-pricing"></span>Pricing
+      </div>
     </div>
 
     <span class="header-right">v1.0 · April 2026</span>
@@ -882,7 +886,6 @@ tr:nth-child(even) td { background: #F9F9F8; }
     <span class="sub-link" onclick="scrollTo_('p-infra', this)">Infrastructure</span>
     <span class="sub-link" onclick="scrollTo_('p-stack', this)">Tech stack decisions</span>
     <span class="sub-link" onclick="scrollTo_('p-build', this)">Build sequence</span>
-    <span class="sub-link" onclick="scrollTo_('p-pricing', this)">Pricing</span>
   </div>
 </nav>
 
@@ -895,6 +898,18 @@ tr:nth-child(even) td { background: #F9F9F8; }
     <span class="sub-link" onclick="scrollTo_('m-jobs', this)">Jobs board</span>
     <span class="sub-link" onclick="scrollTo_('m-invoices', this)">Invoicing</span>
     <span class="sub-link" onclick="scrollTo_('m-materials', this)">Materials &amp; futures</span>
+  </div>
+</nav>
+
+<!-- Sub-nav: Pricing -->
+<nav class="sub-nav" id="subnav-pricing">
+  <div class="sub-nav-inner">
+    <span class="sub-link active" onclick="scrollTo_('pr-overview', this)">Overview</span>
+    <span class="sub-link" onclick="scrollTo_('pr-core', this)">Core platform</span>
+    <span class="sub-link" onclick="scrollTo_('pr-addons', this)">Add-ons</span>
+    <span class="sub-link" onclick="scrollTo_('pr-guide', this)">Full price guide</span>
+    <span class="sub-link" onclick="scrollTo_('pr-billing', this)">How billing works</span>
+    <span class="sub-link" onclick="scrollTo_('pr-faq', this)">FAQ</span>
   </div>
 </nav>
 
@@ -1558,75 +1573,6 @@ tr:nth-child(even) td { background: #F9F9F8; }
     </section>
 
 
-    <!-- P: Pricing -->
-    <section class="spec-section" id="p-pricing">
-      <div class="sec-hd"><span class="sec-num">10</span><h2 class="sec-title">Pricing &amp; packaging</h2></div>
-      <p class="sec-desc">Deliberately simple, deliberately approachable. <strong>Every WeldOps customer gets every feature — no tiers, no upgrade walls.</strong> Pricing is purely a function of team size (per-user) plus optional add-on modules. The competing products (JobBOSS2, Jobber, E2) use heavy feature gating; "all features, every plan" is a differentiator we lead with.</p>
-
-      <div class="callout info"><strong>Design principle</strong>Blue-collar owner-operators distrust tech-pricing games. Feature gating feels like nickel-and-diming and drives churn. We charge for <em>size</em>, not for <em>access</em>.</div>
-
-      <div class="g3" style="margin-top:20px;">
-        <div class="card navy">
-          <div class="card-title"><span class="cdot navy"></span>Core platform</div>
-          <div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--navy);margin:8px 0 4px;">$29<span style="font-size:12px;color:var(--muted);font-weight:400;">/mo base</span></div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">+ $10/mo per additional user</div>
-          <div class="items">
-            <div class="ci"><strong>All features included</strong></div>
-            <div class="ci">Quoting, jobs, invoicing, payments</div>
-            <div class="ci">Materials + metal futures overlay</div>
-            <div class="ci">Scheduling, customer CRM</div>
-            <div class="ci">Compliance, cert tracker, WPS</div>
-            <div class="ci">Dashboard &amp; reporting</div>
-            <div class="ci">Mobile app (offline-first)</div>
-            <div class="ci">Unlimited photos, quotes, jobs</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="cdot" style="background:#86EFAC;"></span>QuickBooks Sync add-on</div>
-          <div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--navy);margin:8px 0 4px;">+$15<span style="font-size:12px;color:var(--muted);font-weight:400;">/mo per account</span></div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Cheaper than Zapier ($20+) or standalone sync tools ($25–50)</div>
-          <div class="items">
-            <div class="ci">Push invoices to QBO automatically</div>
-            <div class="ci">Payment sync with line-item detail</div>
-            <div class="ci">Customer upsert with dedup</div>
-            <div class="ci">Nightly reconciliation sweep</div>
-            <div class="ci">One-tap OAuth connect</div>
-            <div class="ci">Free on the Intuit Builder tier up to ~1,250 active syncs</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title"><span class="cdot" style="background:#C084FC;"></span>Shop Website add-on</div>
-          <div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--navy);margin:8px 0 4px;">+$25<span style="font-size:12px;color:var(--muted);font-weight:400;">/mo per account</span></div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Simple brochure site — not ecommerce. Cheaper than Squarespace.</div>
-          <div class="items">
-            <div class="ci">Services list + contact form</div>
-            <div class="ci">Contact-form submissions → CRM</div>
-            <div class="ci">shopname.weldops.app subdomain included</div>
-            <div class="ci">Custom domain (CNAME) supported</div>
-            <div class="ci">Cloudflare Pages hosting</div>
-            <div class="ci">Photos pulled from job gallery</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout" style="background:#FEF3E2;border-left:3px solid var(--amber);margin-top:18px;"><strong>Bundle discount</strong>Add both QuickBooks Sync + Shop Website for <strong>$35/mo</strong> (save $5). Typical adoption: ~10% of customers take the bundle, 25% take QB only, 15% take Website only.</div>
-
-      <div class="tbl-wrap" style="margin-top:22px;">
-        <table>
-          <thead><tr><th>Shop profile</th><th>Users</th><th>Core</th><th>+ QB</th><th>+ Website</th><th>+ Both</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Solo operator</strong></td><td>1</td><td>$29</td><td>$44</td><td>$54</td><td>$64</td></tr>
-            <tr><td><strong>Owner + 2</strong></td><td>3</td><td>$49</td><td>$64</td><td>$74</td><td>$84</td></tr>
-            <tr><td><strong>Small shop</strong></td><td>5</td><td>$69</td><td>$84</td><td>$94</td><td>$104</td></tr>
-            <tr><td><strong>Mid commercial</strong></td><td>10</td><td>$119</td><td>$134</td><td>$144</td><td>$154</td></tr>
-            <tr><td><strong>Large commercial</strong></td><td>15</td><td>$169</td><td>$184</td><td>$194</td><td>$204</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="sec-desc" style="margin-top:22px;"><strong>Philosophy:</strong> these prices are deliberately approachable, not revenue-maximizing. WeldOps is an experimental product, not a venture-scale play. Capturing users cheaply is worth more than maximizing ARPU. If we ever cross ~1,500 paying customers, we'll have earned the right (and likely the need) to reconsider — but that decision is premature now.</p>
-    </section>
-
   </div><!-- /content-wrap -->
 </div><!-- /page-platform -->
 
@@ -2201,9 +2147,277 @@ tr:nth-child(even) td { background: #F9F9F8; }
 </div><!-- /page-mockups -->
 
 
+<!-- ════════════════════════════════════════════════════════
+     PAGE: PRICING
+     ════════════════════════════════════════════════════════ -->
+<div id="page-pricing" class="page-section">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Pricing</p>
+      <h1 class="hero-title">Simple pricing. No games. All features on every plan.</h1>
+      <p class="hero-sub">Pay for the team you have. Add QuickBooks sync or a shop website when you want them — skip them forever if you don't. No tier cliffs. No upgrade walls. No "starter plan" with half the features stripped out.</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">$29</span><span class="stat-label">Base · includes owner account</span></div>
+        <div><span class="stat-num">+$10</span><span class="stat-label">Per additional user</span></div>
+        <div><span class="stat-num">100%</span><span class="stat-label">Features on every plan</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- PR: Overview -->
+    <section class="spec-section" id="pr-overview">
+      <div class="sec-hd"><span class="sec-num">00</span><h2 class="sec-title">The design principle</h2></div>
+      <p class="sec-desc">Blue-collar owner-operators distrust tech-pricing games. Feature gating feels like nickel-and-diming and drives churn. WeldOps charges for <strong>team size</strong>, not for <strong>access</strong>. Every customer — from the solo mobile welder to the 15-person structural shop — gets the complete feature set on day one.</p>
+
+      <div class="callout info"><strong>Why this matters vs. competitors</strong>JobBOSS2, E2 ShopTech, Jobber, and Tradify all use aggressive feature gating — compliance tools on the top tier, reports on a middle tier, mobile app for an extra fee. That's normal for enterprise SaaS but hostile to this audience. WeldOps takes the opposite stance and leads with it on the pricing page.</div>
+
+      <div class="g2" style="margin-top:18px;">
+        <div class="card p1">
+          <div class="card-title"><span class="cdot p1"></span>What every plan includes</div>
+          <div class="items">
+            <div class="ci"><strong>Quoting</strong> — line items, auto-calc, PDF, e-sign</div>
+            <div class="ci"><strong>Jobs</strong> — Kanban, list, crew assign, photos</div>
+            <div class="ci"><strong>Invoicing</strong> — auto-generate from quote, Stripe link</div>
+            <div class="ci"><strong>Payments</strong> — card, ACH, cash, check, Venmo, CashApp, Zelle, PayPal</div>
+            <div class="ci"><strong>Materials + metal futures</strong> — stock, alerts, 30-day trend overlay</div>
+            <div class="ci"><strong>Scheduling</strong> — calendar, dispatch, travel time</div>
+            <div class="ci"><strong>Customer CRM</strong> — contacts, history, notes</div>
+            <div class="ci"><strong>Compliance</strong> — AWS cert tracker, WPS library, PDF export</div>
+            <div class="ci"><strong>Dashboard</strong> — revenue, receivables, job profitability</div>
+            <div class="ci"><strong>Mobile app</strong> — iOS + Android, offline-first, glove-mode</div>
+            <div class="ci"><strong>Unlimited</strong> — quotes, jobs, invoices, photos, customers</div>
+          </div>
+        </div>
+        <div class="card p3">
+          <div class="card-title"><span class="cdot p3"></span>What costs extra (optional add-ons)</div>
+          <div class="items">
+            <div class="ci"><strong>QuickBooks Sync</strong> ($15/mo per account) — only if you use QB</div>
+            <div class="ci"><strong>Shop Website</strong> ($25/mo per account) — only if you want one</div>
+            <div class="ci"><strong>Bundle of both</strong> ($35/mo, save $5)</div>
+            <div class="ci" style="color:var(--muted);margin-top:8px;font-size:12px;">Add-ons are per-account, not per-user. Add or remove them any time from your Settings screen.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PR: Core platform -->
+    <section class="spec-section" id="pr-core">
+      <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Core platform</h2></div>
+      <p class="sec-desc">The base WeldOps subscription. Everything above is included. Prices scale with your team size.</p>
+
+      <div class="card navy" style="padding:28px;margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:260px;">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--amber);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">WeldOps Core</div>
+            <div style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--navy);line-height:1;">$29<span style="font-size:16px;color:var(--muted);font-weight:400;margin-left:4px;">/month</span></div>
+            <div style="font-size:13px;color:var(--text);margin-top:8px;">Includes your owner account and every feature in the product.</div>
+          </div>
+          <div style="flex:1;min-width:260px;border-left:1px solid var(--border);padding-left:24px;">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--amber);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">+ additional users</div>
+            <div style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--navy);line-height:1;">+$10<span style="font-size:16px;color:var(--muted);font-weight:400;margin-left:4px;">/user /month</span></div>
+            <div style="font-size:13px;color:var(--text);margin-top:8px;">Each crew member gets their own login (phone-based). Add or remove any time.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning" style="margin-top:18px;"><strong>Why per-user instead of tiers?</strong>A 6-person shop shouldn't get punished with a 5-seat "Pro" tier cliff. Per-user pricing scales smoothly: add a welder, add $10. Lose a welder, drop $10. Your bill reflects who's actually on your crew — nothing more, nothing less.</div>
+    </section>
+
+
+    <!-- PR: Add-ons -->
+    <section class="spec-section" id="pr-addons">
+      <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">Optional add-ons</h2></div>
+      <p class="sec-desc">These are the only things that aren't in Core. Both are priced per account (not per user). Turn them on when you need them, off when you don't.</p>
+
+      <div class="g2" style="margin-top:18px;">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+            <div class="card-title" style="margin-bottom:0;"><span class="cdot" style="background:#86EFAC;"></span>QuickBooks Sync</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--navy);">$15<span style="font-size:11px;color:var(--muted);font-weight:400;">/mo</span></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6;">Automatic push of customers, invoices, and payments into your QuickBooks Online company file. Eliminates the manual data re-entry most shops currently do at the end of every month.</div>
+          <div class="items">
+            <div class="ci">One-tap OAuth connection — no IT needed</div>
+            <div class="ci">Invoices auto-push with full line-item detail</div>
+            <div class="ci">Payment sync (card, ACH, cash, check, digital)</div>
+            <div class="ci">Customer upsert with automatic duplicate detection</div>
+            <div class="ci">Nightly reconciliation sweep catches any drift</div>
+            <div class="ci">Disconnect any time from Settings</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--font-mono);">Cheaper than Zapier ($20+) and standalone sync tools ($25–50).</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+            <div class="card-title" style="margin-bottom:0;"><span class="cdot" style="background:#C084FC;"></span>Shop Website</div>
+            <div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--navy);">$25<span style="font-size:11px;color:var(--muted);font-weight:400;">/mo</span></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6;">A simple, professional brochure site — services, contact form, photos of recent work. Not ecommerce. No shopping cart. Just "here's what we do, here's how to reach us." Customer submissions feed directly into your CRM.</div>
+          <div class="items">
+            <div class="ci">Services list + about page</div>
+            <div class="ci">Contact form → creates a Customer in your CRM</div>
+            <div class="ci">Photo gallery pulled from your job records</div>
+            <div class="ci"><code>shopname.weldops.app</code> subdomain included</div>
+            <div class="ci">Custom domain (via CNAME) supported</div>
+            <div class="ci">Mobile-first template, no design work required</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--font-mono);">Cheaper than Squarespace ($23+) or Wix at comparable scope.</div>
+        </div>
+      </div>
+
+      <div class="callout" style="background:#FEF3E2;border-left:3px solid var(--amber);margin-top:18px;"><strong>Bundle both for $35/mo</strong>Save $5/mo when you turn on both add-ons. Most shops with 3+ employees end up using both.</div>
+    </section>
+
+
+    <!-- PR: Full price guide -->
+    <section class="spec-section" id="pr-guide">
+      <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Full price guide</h2></div>
+      <p class="sec-desc">What you'd pay at every team size, with and without add-ons. Every row includes the complete WeldOps feature set.</p>
+
+      <div class="tbl-wrap" style="margin-top:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Shop profile</th>
+              <th style="text-align:center;">Users</th>
+              <th style="text-align:right;">Core only</th>
+              <th style="text-align:right;">+ QuickBooks</th>
+              <th style="text-align:right;">+ Website</th>
+              <th style="text-align:right;">+ Bundle (both)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Solo operator</strong><div style="font-size:10px;color:var(--muted);">Mobile welder, 1 truck</div></td>
+              <td style="text-align:center;font-family:var(--font-mono);">1</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--navy);">$29</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$44</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$54</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--amber);">$64</td>
+            </tr>
+            <tr>
+              <td><strong>Owner + 2</strong><div style="font-size:10px;color:var(--muted);">Small mobile shop</div></td>
+              <td style="text-align:center;font-family:var(--font-mono);">3</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--navy);">$49</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$64</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$74</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--amber);">$84</td>
+            </tr>
+            <tr>
+              <td><strong>Small shop</strong><div style="font-size:10px;color:var(--muted);">Owner + 4 welders</div></td>
+              <td style="text-align:center;font-family:var(--font-mono);">5</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--navy);">$69</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$84</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$94</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--amber);">$104</td>
+            </tr>
+            <tr>
+              <td><strong>Mid commercial</strong><div style="font-size:10px;color:var(--muted);">Multi-crew shop</div></td>
+              <td style="text-align:center;font-family:var(--font-mono);">10</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--navy);">$119</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$134</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$144</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--amber);">$154</td>
+            </tr>
+            <tr>
+              <td><strong>Large commercial</strong><div style="font-size:10px;color:var(--muted);">Structural/AWS shop</div></td>
+              <td style="text-align:center;font-family:var(--font-mono);">15</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--navy);">$169</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$184</td>
+              <td style="text-align:right;font-family:var(--font-mono);">$194</td>
+              <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--amber);">$204</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="sec-desc" style="margin-top:16px;font-size:12px;">Even the highest-priced fully-loaded configuration ($204/mo for a 15-person commercial shop with both add-ons) runs about <strong>0.1–0.3% of annual gross revenue</strong> for that size shop — a fraction of what enterprise ERP tools like JobBOSS2 cost.</p>
+    </section>
+
+
+    <!-- PR: How billing works -->
+    <section class="spec-section" id="pr-billing">
+      <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">How billing works</h2></div>
+
+      <div class="g2" style="margin-top:18px;">
+        <div class="card">
+          <div class="card-title"><span class="cdot navy"></span>User count is automatic</div>
+          <div class="items">
+            <div class="ci">Add a crew member in Settings → Team</div>
+            <div class="ci">They get a text: "Mike Rodriguez Welding added you to WeldOps"</div>
+            <div class="ci">Your next monthly bill reflects the new user</div>
+            <div class="ci">Remove a crew member, the bill drops immediately on next cycle</div>
+            <div class="ci">No tier migrations, no "request an upgrade" forms</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="cdot" style="background:var(--amber);"></span>Transparent, no surprises</div>
+          <div class="items">
+            <div class="ci">See active user count in Settings → Billing</div>
+            <div class="ci">See every login in Settings → Team Activity</div>
+            <div class="ci">Email + SMS receipts every month</div>
+            <div class="ci">Prorated — mid-cycle adds bill proportionally</div>
+            <div class="ci">Cancel any time, no contracts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-top:18px;"><strong>Anti-abuse, done fairly</strong>If the app detects more active users logging in than you're paying for, across three consecutive months, we send a friendly note: <em>"You've had 7 active crew members this month. Your bill will reflect 7 users ($89/mo) next cycle — reply STOP to cap new user adds at your current 5."</em> No surprise charges. No accounts locked out. Just honest accounting.</div>
+    </section>
+
+
+    <!-- PR: FAQ -->
+    <section class="spec-section" id="pr-faq">
+      <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Common questions</h2></div>
+
+      <div style="display:grid;gap:14px;margin-top:16px;">
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">What's the catch with "all features, every plan"?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">There isn't one. You pay for team size (per-user) and for optional add-ons (QuickBooks, Website). Core features — every last one — are included at $29. This is deliberate. We believe feature gating is the wrong way to price a product for blue-collar trades.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Do I need QuickBooks?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">Not at all. WeldOps handles quoting, invoicing, and payment tracking completely on its own. QuickBooks Sync is an <em>optional</em> add-on for shops that already use QB for their books and want the data to flow automatically. If you don't use QB, skip it.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">What if my crew changes month to month?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">Your bill changes with it. Add a welder for a busy month, drop them back off when things slow down. Mid-cycle adds are prorated. You're never locked into a team size.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Is there a free trial?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;"><strong>14 days free, no credit card required.</strong> Build real quotes, send real invoices, try the mobile app. Nothing's billed until you decide to continue.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Does the website add-on replace Squarespace / Wix?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">For most small shops — yes. The WeldOps Shop Website is a clean brochure site: services, about, photos, and a contact form. It's not ecommerce. If you don't sell products directly through a website, this covers what you need, simpler and cheaper. If you need a full commerce site, keep your Squarespace.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">How do I cancel?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">Settings → Billing → Cancel. No phone call, no retention team. Your account stays accessible through the end of your current billing cycle. You can export all your data (customers, jobs, invoices, photos) at any time — it's your data.</div>
+        </div>
+
+        <div style="padding:16px 18px;background:var(--smoke);border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;">Will the price change as you grow?</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.7;">Existing customers are locked in at the price they signed up at for as long as they're subscribed continuously. If we raise base pricing for new signups down the road, your plan won't change.</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content-wrap -->
+</div><!-- /page-pricing -->
+
+
 <!-- FOOTER -->
 <footer class="site-footer">
-  <strong>WeldOps</strong> &nbsp;·&nbsp; Project Hub v1.0 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Market Research · Brand Guide · Platform Specification · Platform Mockups
+  <strong>WeldOps</strong> &nbsp;·&nbsp; Project Hub v1.0 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Market Research · Brand Guide · Platform Specification · Platform Mockups · Pricing
 </footer>
 
 
@@ -2266,6 +2480,7 @@ setupObserver('page-research', 'subnav-research');
 setupObserver('page-brand',    'subnav-brand');
 setupObserver('page-platform', 'subnav-platform');
 setupObserver('page-mockups',  'subnav-mockups');
+setupObserver('page-pricing',  'subnav-pricing');
 </script>
 </body>
 </html>
