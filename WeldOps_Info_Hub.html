@@ -126,6 +126,7 @@ code { font-family: var(--font-mono); font-size: 0.88em; background: var(--smoke
 .td-research { background: #60A5FA; }
 .td-brand    { background: var(--amber); }
 .td-platform { background: #86EFAC; }
+.td-mockups  { background: #C084FC; }
 
 .header-right {
   margin-left: auto;
@@ -466,6 +467,300 @@ tr:nth-child(even) td { background: #F9F9F8; }
 .pl-item { display: flex; align-items: center; gap: 7px; }
 
 /* ─────────────────────────────────────────────────────────
+   PLATFORM MOCKUPS — device frames + miniature app UI
+   ───────────────────────────────────────────────────────── */
+.mockup-intro { font-size: 13px; color: var(--text); line-height: 1.7; max-width: 720px; margin-bottom: 24px; }
+.mockup-intro strong { color: var(--navy); font-weight: 600; }
+
+.device-row {
+  display: grid;
+  grid-template-columns: 1.7fr 0.9fr;
+  gap: 28px;
+  align-items: start;
+  margin: 18px 0 28px;
+}
+@media (max-width: 900px) { .device-row { grid-template-columns: 1fr; gap: 32px; } }
+
+.device-label {
+  font-family: var(--font-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--muted); margin-bottom: 8px;
+}
+
+/* Browser-style frame (web) */
+.web-frame {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(16,24,40,0.06);
+}
+.web-chrome {
+  background: #F3F4F6;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.web-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.wd-r { background: #FF5F57; } .wd-y { background: #FEBC2E; } .wd-g { background: #28C840; }
+.web-url {
+  margin-left: 14px;
+  font-family: var(--font-mono);
+  font-size: 9.5px; color: var(--muted);
+  background: #fff; border: 1px solid var(--border);
+  padding: 3px 10px; border-radius: 4px;
+  flex: 1; text-align: center;
+  max-width: 360px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.web-canvas { display: flex; font-size: 11px; background: #FAFAF9; min-height: 380px; }
+.web-sidebar {
+  width: 118px; background: var(--navy); color: #fff;
+  padding: 12px 0; font-size: 10px; flex-shrink: 0;
+}
+.web-sidebar-logo { padding: 0 14px 10px; font-family: var(--font-mono); font-weight: 500; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; }
+.web-sidebar-logo span { color: var(--amber); }
+.web-sidebar-section { padding: 4px 14px; color: rgba(255,255,255,0.35); font-size: 8px; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 8px; }
+.web-sidebar-item { padding: 6px 14px; color: rgba(255,255,255,0.7); font-size: 10px; display: flex; align-items: center; gap: 6px; }
+.web-sidebar-item.active { color: #fff; background: rgba(255,255,255,0.08); border-left: 2px solid var(--amber); padding-left: 12px; }
+.web-sb-icon { width: 8px; height: 8px; border-radius: 1px; background: currentColor; opacity: 0.8; }
+
+.web-main { flex: 1; padding: 14px 16px; min-width: 0; overflow: hidden; }
+.web-main-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+}
+.web-main-title { font-size: 14px; font-weight: 600; color: var(--navy); }
+.web-main-title .sub { font-size: 10px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+.web-main-btn {
+  background: var(--navy); color: #fff; font-size: 9.5px; font-weight: 500;
+  padding: 5px 10px; border-radius: 4px; white-space: nowrap;
+}
+
+/* Phone frame (mobile) */
+.phone-frame {
+  background: #1a1a1a;
+  border-radius: 28px;
+  padding: 8px;
+  max-width: 248px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(16,24,40,0.18);
+  position: relative;
+}
+.phone-inner {
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  min-height: 440px;
+}
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 76px; height: 18px;
+  background: #1a1a1a;
+  border-radius: 0 0 10px 10px;
+  z-index: 3;
+}
+.phone-status {
+  padding: 28px 14px 4px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono);
+  font-size: 9px; color: var(--text);
+  position: relative; z-index: 2;
+}
+.phone-status-icons { display: flex; gap: 3px; align-items: center; }
+.phone-signal { width: 12px; height: 7px; background: var(--text); border-radius: 1px; opacity: 0.9; }
+.phone-battery { width: 16px; height: 7px; border: 1px solid var(--text); border-radius: 2px; padding: 1px; }
+.phone-battery::after { content: ''; display: block; width: 70%; height: 100%; background: var(--text); border-radius: 1px; }
+
+.phone-app { padding: 8px 14px 18px; font-size: 10.5px; line-height: 1.4; }
+.phone-app-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0 10px; border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.phone-app-title { font-size: 15px; font-weight: 600; color: var(--navy); letter-spacing: -0.3px; }
+.phone-app-ham { display: flex; flex-direction: column; gap: 3px; cursor: default; }
+.phone-app-ham span { display: block; width: 14px; height: 1.5px; background: var(--navy); }
+.phone-app-action {
+  font-size: 10px; color: var(--amber); font-weight: 500;
+}
+
+/* Miniature reusable widgets */
+.mock-stat {
+  padding: 10px; background: #fff;
+  border: 1px solid var(--border); border-radius: 6px;
+}
+.mock-stat-label { font-size: 8.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.mock-stat-value { font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--navy); line-height: 1; }
+.mock-stat-sub { font-size: 9px; color: var(--muted); margin-top: 3px; }
+.mock-stat-sub.up   { color: #16A34A; }
+.mock-stat-sub.down { color: #DC2626; }
+
+.mock-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mock-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+.mock-panel {
+  background: #fff; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px; margin-top: 10px;
+}
+.mock-panel-hd { font-size: 10px; font-weight: 600; color: var(--navy); margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.mock-panel-hd .mono { font-family: var(--font-mono); font-weight: 400; font-size: 9px; color: var(--muted); }
+
+.mock-stage-strip { display: flex; gap: 4px; }
+.mock-stage { flex: 1; text-align: center; padding: 4px 2px; background: var(--smoke); border-radius: 4px; }
+.mock-stage-num { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--navy); }
+.mock-stage-lbl { font-size: 8px; color: var(--muted); margin-top: 1px; }
+
+.mock-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  font-size: 9.5px;
+}
+.mock-row:last-child { border-bottom: none; }
+.mock-row-main { flex: 1; min-width: 0; }
+.mock-row-title { font-weight: 500; color: var(--text); margin-bottom: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mock-row-meta { font-size: 8.5px; color: var(--muted); }
+.mock-avatar {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 8.5px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-family: var(--font-mono);
+}
+.mock-avatar.amber { background: var(--amber); }
+.mock-avatar.green { background: #16A34A; }
+.mock-avatar.red   { background: #DC2626; }
+
+.mock-pill {
+  font-size: 8px; font-weight: 500;
+  padding: 2px 6px; border-radius: 3px;
+  background: var(--smoke); color: var(--muted);
+  white-space: nowrap;
+}
+.mock-pill.amber  { background: #FEF3E2; color: #B45309; }
+.mock-pill.blue   { background: var(--navy-light); color: #1D4ED8; }
+.mock-pill.green  { background: #DCFCE7; color: #15803D; }
+.mock-pill.red    { background: #FEE2E2; color: #B91C1C; }
+.mock-pill.navy   { background: var(--navy); color: #fff; }
+
+/* Kanban */
+.mock-kanban {
+  display: flex; gap: 6px; overflow-x: auto; padding: 10px;
+  background: #fff; border: 1px solid var(--border); border-radius: 6px;
+  scrollbar-width: thin;
+}
+.mock-kb-col {
+  min-width: 100px; flex: 1;
+  background: #F9F9F8; border-radius: 4px; padding: 6px;
+}
+.mock-kb-head {
+  font-size: 8.5px; font-weight: 600; color: var(--navy);
+  text-transform: uppercase; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.mock-kb-count { font-family: var(--font-mono); color: var(--muted); font-weight: 400; }
+.mock-kb-card {
+  background: #fff; border-radius: 4px;
+  padding: 6px 7px; margin-bottom: 5px;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--amber);
+}
+.mock-kb-card-title { font-weight: 500; color: var(--text); margin-bottom: 2px; font-size: 9px; line-height: 1.3; }
+.mock-kb-card-meta { font-family: var(--font-mono); color: var(--muted); font-size: 8px; }
+.mock-kb-card-val { font-family: var(--font-mono); color: var(--navy); font-weight: 500; font-size: 9.5px; }
+.mock-kb-card.blue   { border-left-color: #60A5FA; }
+.mock-kb-card.green  { border-left-color: #16A34A; }
+
+/* Quote builder */
+.mock-form-row { display: flex; gap: 6px; margin-bottom: 7px; }
+.mock-input {
+  flex: 1;
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 6px 8px; font-size: 9.5px; color: var(--text);
+  background: #fff; line-height: 1.3;
+}
+.mock-input.small { max-width: 90px; }
+.mock-input .label { display: block; font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.3px; color: var(--muted); margin-bottom: 2px; font-family: var(--font-mono); }
+.mock-input .val { font-weight: 500; }
+.mock-totals {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-mid);
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 10px;
+}
+.mock-totals-row { display: flex; justify-content: space-between; padding: 3px 0; color: var(--text); }
+.mock-totals-row .mono { font-family: var(--font-mono); }
+.mock-totals-row.grand {
+  border-top: 1px solid var(--navy-mid); margin-top: 6px; padding-top: 8px;
+  font-weight: 600; font-size: 12px; color: var(--navy);
+}
+
+/* Invoice */
+.mock-invoice-hd {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 10px; margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.mock-invoice-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--navy); }
+.mock-invoice-biz { font-size: 9px; color: var(--muted); margin-top: 2px; }
+.mock-invoice-total {
+  font-family: var(--font-mono); font-size: 20px; font-weight: 600;
+  color: var(--navy); text-align: right; line-height: 1;
+}
+.mock-invoice-totalbl { font-size: 8.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
+/* Phone CTAs — glove-mode tap targets */
+.phone-cta {
+  display: block;
+  width: 100%;
+  background: var(--navy); color: #fff;
+  padding: 14px 10px;
+  border-radius: 8px;
+  font-size: 11.5px; font-weight: 600;
+  text-align: center;
+  margin-top: 12px;
+  letter-spacing: 0.2px;
+}
+.phone-cta.amber { background: var(--amber); }
+.phone-cta.outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+
+.phone-bottom-nav {
+  display: flex; justify-content: space-around;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  background: #fff;
+  margin-top: 14px;
+  margin-left: -14px; margin-right: -14px; margin-bottom: -18px;
+}
+.phone-bn-item { text-align: center; font-size: 8px; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.3px; text-transform: uppercase; }
+.phone-bn-item.active { color: var(--navy); font-weight: 600; }
+.phone-bn-dot { width: 14px; height: 14px; border-radius: 3px; background: currentColor; margin: 0 auto 4px; opacity: 0.7; }
+
+/* Feature caption bar under device row */
+.feature-caption {
+  font-size: 12.5px; color: var(--muted);
+  line-height: 1.7; max-width: 680px; margin-top: -8px; margin-bottom: 22px;
+}
+.feature-caption strong { color: var(--navy); font-weight: 600; }
+
+/* Small utility */
+.mock-hint { font-size: 9px; color: var(--muted); font-family: var(--font-mono); text-align: center; margin-top: 6px; letter-spacing: 0.3px; }
+
+@media (max-width: 580px) {
+  .phone-frame { max-width: 260px; }
+  .web-sidebar { width: 86px; }
+  .web-sidebar-item { font-size: 9px; padding: 5px 10px; }
+  .web-main { padding: 10px; }
+  .mock-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─────────────────────────────────────────────────────────
    MOBILE HEADER — tighten spacing so all 3 tabs fit / scroll cleanly
    ───────────────────────────────────────────────────────── */
 @media (max-width: 720px) {
@@ -505,6 +800,9 @@ tr:nth-child(even) td { background: #F9F9F8; }
       </div>
       <div class="section-tab" onclick="switchSection('platform', this)">
         <span class="tab-dot td-platform"></span>Platform spec
+      </div>
+      <div class="section-tab" onclick="switchSection('mockups', this)">
+        <span class="tab-dot td-mockups"></span>Platform mockups
       </div>
     </div>
 
@@ -551,6 +849,17 @@ tr:nth-child(even) td { background: #F9F9F8; }
     <span class="sub-link" onclick="scrollTo_('p-infra', this)">Infrastructure</span>
     <span class="sub-link" onclick="scrollTo_('p-stack', this)">Tech stack decisions</span>
     <span class="sub-link" onclick="scrollTo_('p-build', this)">Build sequence</span>
+  </div>
+</nav>
+
+<!-- Sub-nav: Platform Mockups -->
+<nav class="sub-nav" id="subnav-mockups">
+  <div class="sub-nav-inner">
+    <span class="sub-link active" onclick="scrollTo_('m-overview', this)">Overview</span>
+    <span class="sub-link" onclick="scrollTo_('m-dashboard', this)">Dashboard</span>
+    <span class="sub-link" onclick="scrollTo_('m-quotes', this)">Quote builder</span>
+    <span class="sub-link" onclick="scrollTo_('m-jobs', this)">Jobs board</span>
+    <span class="sub-link" onclick="scrollTo_('m-invoices', this)">Invoicing</span>
   </div>
 </nav>
 
@@ -1217,9 +1526,448 @@ tr:nth-child(even) td { background: #F9F9F8; }
 </div><!-- /page-platform -->
 
 
+<!-- ════════════════════════════════════════════════════════
+     PAGE: PLATFORM MOCKUPS
+     ════════════════════════════════════════════════════════ -->
+<div id="page-mockups" class="page-section">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Platform Mockups</p>
+      <h1 class="hero-title">Web + mobile interface samples</h1>
+      <p class="hero-sub">Visual samples of the key screens as they will look in both the shop owner's web portal and the field-ready mobile app. All example data is illustrative — shop, customers, and job amounts are for demonstration only.</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">4</span><span class="stat-label">Core features shown</span></div>
+        <div><span class="stat-num">8</span><span class="stat-label">Screens rendered</span></div>
+        <div><span class="stat-num">48px</span><span class="stat-label">Glove-mode tap target</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- M: Overview -->
+    <section class="spec-section" id="m-overview">
+      <div class="sec-hd"><span class="sec-num">00</span><h2 class="sec-title">How to read these mockups</h2></div>
+      <p class="mockup-intro">Each feature below is shown in <strong>two device frames side-by-side</strong>: the browser frame is the owner's desktop/laptop portal view, the phone frame is the same feature as it appears in the iOS/Android app. Colors, typography, spacing, and interaction patterns follow the WeldOps brand guide. The mobile frames use <strong>48&nbsp;px minimum tap targets</strong> (glove-mode) on every interactive element — a hard requirement for the target user working with welding gloves on.</p>
+      <p class="mockup-intro">These are <strong>static visual samples</strong> — not live prototypes. They are intended to communicate look, feel, and information architecture during planning and stakeholder review, before the actual React + React Native builds begin.</p>
+    </section>
+
+
+    <!-- ══════ FEATURE 1: DASHBOARD ══════ -->
+    <section class="spec-section" id="m-dashboard">
+      <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Dashboard</h2></div>
+      <p class="sec-desc">The daily command center. Revenue, open jobs, and outstanding receivables at a glance. The same data powers both views — each is optimized for its context (office screen vs. one-handed field check).</p>
+
+      <div class="device-row">
+        <!-- Web frame -->
+        <div>
+          <div class="device-label">Web — Owner portal</div>
+          <div class="web-frame">
+            <div class="web-chrome">
+              <span class="web-dot wd-r"></span><span class="web-dot wd-y"></span><span class="web-dot wd-g"></span>
+              <span class="web-url">app.weld-ops.com/dashboard</span>
+            </div>
+            <div class="web-canvas">
+              <aside class="web-sidebar">
+                <div class="web-sidebar-logo">Weld<span>Ops</span></div>
+                <div class="web-sidebar-section">Main</div>
+                <div class="web-sidebar-item active"><span class="web-sb-icon"></span>Dashboard</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Jobs</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Quotes</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Schedule</div>
+                <div class="web-sidebar-section">Business</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Customers</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Invoices</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Materials</div>
+              </aside>
+              <div class="web-main">
+                <div class="web-main-head">
+                  <div class="web-main-title">Good morning, Mike <span class="sub">Fri · Apr 18</span></div>
+                  <div class="web-main-btn">+ New Job</div>
+                </div>
+                <div class="mock-grid-4">
+                  <div class="mock-stat"><div class="mock-stat-label">Revenue</div><div class="mock-stat-value">$18,450</div><div class="mock-stat-sub up">↑ 12% vs last mo</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Open jobs</div><div class="mock-stat-value">9</div><div class="mock-stat-sub">3 due this week</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Quotes pending</div><div class="mock-stat-value">5</div><div class="mock-stat-sub">$7,200 potential</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Outstanding</div><div class="mock-stat-value">$4,100</div><div class="mock-stat-sub down">2 overdue</div></div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Active jobs by stage<span class="mono">9 total</span></div>
+                  <div class="mock-stage-strip">
+                    <div class="mock-stage"><div class="mock-stage-num">2</div><div class="mock-stage-lbl">Quoted</div></div>
+                    <div class="mock-stage"><div class="mock-stage-num">2</div><div class="mock-stage-lbl">Scheduled</div></div>
+                    <div class="mock-stage"><div class="mock-stage-num">3</div><div class="mock-stage-lbl">In prog</div></div>
+                    <div class="mock-stage"><div class="mock-stage-num">1</div><div class="mock-stage-lbl">Finishing</div></div>
+                    <div class="mock-stage"><div class="mock-stage-num">1</div><div class="mock-stage-lbl">Invoiced</div></div>
+                  </div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Today's schedule<span class="mono">3 jobs</span></div>
+                  <div class="mock-row"><span class="mock-avatar">JS</span><div class="mock-row-main"><div class="mock-row-title">Gate repair — Johnson farm</div><div class="mock-row-meta">8:00am · 2h est · mobile</div></div><span class="mock-pill amber">In prog</span></div>
+                  <div class="mock-row"><span class="mock-avatar amber">TC</span><div class="mock-row-main"><div class="mock-row-title">Custom trailer — Thompson Co.</div><div class="mock-row-meta">1:00pm · shop</div></div><span class="mock-pill blue">Scheduled</span></div>
+                  <div class="mock-row"><span class="mock-avatar green">RB</span><div class="mock-row-main"><div class="mock-row-title">Railing quote — Rivera build</div><div class="mock-row-meta">3:30pm · site visit</div></div><span class="mock-pill">Quoted</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone frame -->
+        <div>
+          <div class="device-label">Mobile — Field app</div>
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-status">
+                <span>9:41</span>
+                <div class="phone-status-icons"><span class="phone-signal"></span><span class="phone-battery"></span></div>
+              </div>
+              <div class="phone-app">
+                <div class="phone-app-head">
+                  <div class="phone-app-ham"><span></span><span></span><span></span></div>
+                  <div class="phone-app-title">Dashboard</div>
+                  <div class="phone-app-action">+</div>
+                </div>
+                <div class="mock-grid-2">
+                  <div class="mock-stat"><div class="mock-stat-label">Revenue</div><div class="mock-stat-value">$18,450</div><div class="mock-stat-sub up">↑ 12%</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Open jobs</div><div class="mock-stat-value">9</div><div class="mock-stat-sub">3 this wk</div></div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Today</div>
+                  <div class="mock-row"><span class="mock-avatar">JS</span><div class="mock-row-main"><div class="mock-row-title">Johnson farm</div><div class="mock-row-meta">8:00am · gate repair</div></div></div>
+                  <div class="mock-row"><span class="mock-avatar amber">TC</span><div class="mock-row-main"><div class="mock-row-title">Thompson Co.</div><div class="mock-row-meta">1:00pm · trailer</div></div></div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Stock alerts<span class="mono">3</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">MIG wire</div><div class="mock-row-meta">2 spools left</div></div><span class="mock-pill amber">Low</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">1" sq tube 16ga</div><div class="mock-row-meta">1 stick</div></div><span class="mock-pill red">Critical</span></div>
+                </div>
+                <div class="phone-bottom-nav">
+                  <div class="phone-bn-item active"><div class="phone-bn-dot"></div>Home</div>
+                  <div class="phone-bn-item"><div class="phone-bn-dot"></div>Jobs</div>
+                  <div class="phone-bn-item"><div class="phone-bn-dot"></div>Quote</div>
+                  <div class="phone-bn-item"><div class="phone-bn-dot"></div>More</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-hint">Bottom nav · glove-mode taps</div>
+        </div>
+      </div>
+
+      <p class="feature-caption"><strong>What this shows:</strong> four revenue-critical numbers up top, live stage counts across all active jobs, and today's schedule — all within the first screenful on both surfaces. On mobile, stock alerts move above the fold because that's what the owner checks most often from the truck.</p>
+    </section>
+
+
+    <!-- ══════ FEATURE 2: QUOTE BUILDER ══════ -->
+    <section class="spec-section" id="m-quotes">
+      <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">Quote builder</h2></div>
+      <p class="sec-desc">The most important workflow in the app. A shop owner builds a complete, professional quote in under five minutes — even from the job site on a phone. Line items auto-calc. Totals update live. One tap converts an approved quote to an active job with zero re-entry.</p>
+
+      <div class="device-row">
+        <!-- Web -->
+        <div>
+          <div class="device-label">Web — Quote composer</div>
+          <div class="web-frame">
+            <div class="web-chrome">
+              <span class="web-dot wd-r"></span><span class="web-dot wd-y"></span><span class="web-dot wd-g"></span>
+              <span class="web-url">app.weld-ops.com/quotes/new</span>
+            </div>
+            <div class="web-canvas">
+              <aside class="web-sidebar">
+                <div class="web-sidebar-logo">Weld<span>Ops</span></div>
+                <div class="web-sidebar-section">Main</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Dashboard</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Jobs</div>
+                <div class="web-sidebar-item active"><span class="web-sb-icon"></span>Quotes</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Schedule</div>
+                <div class="web-sidebar-section">Business</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Customers</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Invoices</div>
+              </aside>
+              <div class="web-main">
+                <div class="web-main-head">
+                  <div class="web-main-title">Quote builder <span class="sub">New · Draft</span></div>
+                  <div class="web-main-btn">Send quote</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:12px;">
+                  <div>
+                    <div class="mock-panel" style="margin-top:0">
+                      <div class="mock-panel-hd">Customer &amp; job</div>
+                      <div class="mock-form-row">
+                        <div class="mock-input"><span class="label">Customer</span><span class="val">Thompson Co.</span></div>
+                        <div class="mock-input small"><span class="label">Type</span><span class="val">Trailer</span></div>
+                      </div>
+                      <div class="mock-form-row">
+                        <div class="mock-input"><span class="label">Job site</span><span class="val">4821 Industrial Pkwy</span></div>
+                        <div class="mock-input small"><span class="label">Expires</span><span class="val">Apr 30</span></div>
+                      </div>
+                    </div>
+                    <div class="mock-panel">
+                      <div class="mock-panel-hd">Labor</div>
+                      <div class="mock-form-row">
+                        <div class="mock-input small"><span class="label">Hours</span><span class="val">16</span></div>
+                        <div class="mock-input small"><span class="label">Rate/hr</span><span class="val">$85</span></div>
+                        <div class="mock-input"><span class="label">Labor total</span><span class="val" style="color:var(--navy);">$1,360.00</span></div>
+                      </div>
+                    </div>
+                    <div class="mock-panel">
+                      <div class="mock-panel-hd">Materials<span class="mono">+ Add line</span></div>
+                      <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">2x2 sq tube 14ga</div><div class="mock-row-meta">Mild steel · 20ft · $1.85/ft</div></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--navy);font-weight:500;">$37.00</span></div>
+                      <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">3/16" plate</div><div class="mock-row-meta">Mild steel · 12 sqft · $4.20</div></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--navy);font-weight:500;">$50.40</span></div>
+                      <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">2" ball coupler</div><div class="mock-row-meta">Hardware · 1 unit</div></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--navy);font-weight:500;">$18.00</span></div>
+                    </div>
+                  </div>
+                  <div class="mock-totals">
+                    <div style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:8px;">Live totals</div>
+                    <div class="mock-totals-row"><span>Materials subtotal</span><span class="mono">$105.40</span></div>
+                    <div class="mock-totals-row"><span>Labor</span><span class="mono">$1,360.00</span></div>
+                    <div class="mock-totals-row"><span>Markup (25%)</span><span class="mono">$366.35</span></div>
+                    <div class="mock-totals-row"><span>Tax (8.5%)</span><span class="mono">$156.30</span></div>
+                    <div class="mock-totals-row grand"><span>Total</span><span class="mono">$1,988.05</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <div class="device-label">Mobile — Quote from the truck</div>
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-status"><span>9:41</span><div class="phone-status-icons"><span class="phone-signal"></span><span class="phone-battery"></span></div></div>
+              <div class="phone-app">
+                <div class="phone-app-head">
+                  <div class="phone-app-ham"><span></span><span></span><span></span></div>
+                  <div class="phone-app-title">New quote</div>
+                  <div class="phone-app-action">Save</div>
+                </div>
+                <div class="mock-input" style="margin-bottom:7px;"><span class="label">Customer</span><span class="val">Thompson Co.</span></div>
+                <div class="mock-form-row">
+                  <div class="mock-input small"><span class="label">Hours</span><span class="val">16</span></div>
+                  <div class="mock-input small"><span class="label">Rate</span><span class="val">$85</span></div>
+                </div>
+                <div class="mock-panel" style="margin-top:6px;">
+                  <div class="mock-panel-hd">Materials<span class="mono">3</span></div>
+                  <div class="mock-row" style="padding:5px 0;"><div class="mock-row-main"><div class="mock-row-title">2x2 tube · 20ft</div></div><span style="font-family:var(--font-mono);font-size:9.5px;color:var(--navy);">$37</span></div>
+                  <div class="mock-row" style="padding:5px 0;"><div class="mock-row-main"><div class="mock-row-title">3/16" plate · 12sqft</div></div><span style="font-family:var(--font-mono);font-size:9.5px;color:var(--navy);">$50</span></div>
+                  <div class="mock-row" style="padding:5px 0;"><div class="mock-row-main"><div class="mock-row-title">Ball coupler</div></div><span style="font-family:var(--font-mono);font-size:9.5px;color:var(--navy);">$18</span></div>
+                </div>
+                <div class="mock-totals" style="padding:10px;margin-top:10px;">
+                  <div class="mock-totals-row"><span>Materials</span><span class="mono">$105</span></div>
+                  <div class="mock-totals-row"><span>Labor + mkp</span><span class="mono">$1,726</span></div>
+                  <div class="mock-totals-row"><span>Tax</span><span class="mono">$156</span></div>
+                  <div class="mock-totals-row grand"><span>Total</span><span class="mono">$1,988</span></div>
+                </div>
+                <div class="phone-cta">Send quote by text</div>
+                <div class="phone-cta outline">Save as draft</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-hint">Voice-to-text on notes · offline-first</div>
+        </div>
+      </div>
+
+      <p class="feature-caption"><strong>What this shows:</strong> the totals panel updates the instant any field changes — owners see real margin as they build. On mobile, the quote is sendable via SMS to the customer with one tap, and drafts save locally so the app works in rural areas with no signal. Approved quotes convert to active jobs with no re-entry of customer, line items, or labor.</p>
+    </section>
+
+
+    <!-- ══════ FEATURE 3: JOBS BOARD ══════ -->
+    <section class="spec-section" id="m-jobs">
+      <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Jobs board</h2></div>
+      <p class="sec-desc">Every active job, every stage, always visible. On the web, a five-column Kanban shows the entire shop pipeline at once. On mobile, a single focused column with swipe navigation keeps the field crew moving without clutter.</p>
+
+      <div class="device-row">
+        <!-- Web -->
+        <div>
+          <div class="device-label">Web — Kanban pipeline</div>
+          <div class="web-frame">
+            <div class="web-chrome">
+              <span class="web-dot wd-r"></span><span class="web-dot wd-y"></span><span class="web-dot wd-g"></span>
+              <span class="web-url">app.weld-ops.com/jobs</span>
+            </div>
+            <div class="web-canvas">
+              <aside class="web-sidebar">
+                <div class="web-sidebar-logo">Weld<span>Ops</span></div>
+                <div class="web-sidebar-section">Main</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Dashboard</div>
+                <div class="web-sidebar-item active"><span class="web-sb-icon"></span>Jobs</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Quotes</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Schedule</div>
+                <div class="web-sidebar-section">Business</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Customers</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Invoices</div>
+              </aside>
+              <div class="web-main">
+                <div class="web-main-head">
+                  <div class="web-main-title">Jobs <span class="sub">Board view · 9 active</span></div>
+                  <div class="web-main-btn">+ New Job</div>
+                </div>
+                <div class="mock-kanban">
+                  <div class="mock-kb-col">
+                    <div class="mock-kb-head">Quoted <span class="mock-kb-count">2</span></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Ornamental railing — Rivera</div><div class="mock-kb-card-meta">Residential · Apr 15</div><div class="mock-kb-card-val">$1,850</div></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Equip bracket — Sunrise</div><div class="mock-kb-card-meta">Agricultural · Apr 17</div><div class="mock-kb-card-val">$640</div></div>
+                  </div>
+                  <div class="mock-kb-col">
+                    <div class="mock-kb-head">Scheduled <span class="mock-kb-count">2</span></div>
+                    <div class="mock-kb-card blue"><div class="mock-kb-card-title">Custom trailer — Thompson Co.</div><div class="mock-kb-card-meta">Commercial · Apr 18</div><div class="mock-kb-card-val">$4,200</div></div>
+                    <div class="mock-kb-card blue"><div class="mock-kb-card-title">Pipe gate — Hollis ranch</div><div class="mock-kb-card-meta">Agricultural · Apr 20</div><div class="mock-kb-card-val">$380</div></div>
+                  </div>
+                  <div class="mock-kb-col">
+                    <div class="mock-kb-head">In progress <span class="mock-kb-count">3</span></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Gate repair — Johnson</div><div class="mock-kb-card-meta">Due today</div><div class="mock-kb-card-val">$920</div></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Steel stairs — Metro office</div><div class="mock-kb-card-meta">Commercial · Apr 25</div><div class="mock-kb-card-val">$6,800</div></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Fire pit — residential</div><div class="mock-kb-card-meta">Apr 22</div><div class="mock-kb-card-val">$750</div></div>
+                  </div>
+                  <div class="mock-kb-col">
+                    <div class="mock-kb-head">Finishing <span class="mock-kb-count">1</span></div>
+                    <div class="mock-kb-card"><div class="mock-kb-card-title">Powder coat — Rivera railing</div><div class="mock-kb-card-meta">Sub-out · Apr 21</div></div>
+                  </div>
+                  <div class="mock-kb-col">
+                    <div class="mock-kb-head">Invoice ready <span class="mock-kb-count">1</span></div>
+                    <div class="mock-kb-card green"><div class="mock-kb-card-title">Exhaust — Davis auto</div><div class="mock-kb-card-meta">Done</div><div class="mock-kb-card-val">$1,100</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <div class="device-label">Mobile — Single-column focus</div>
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-status"><span>9:41</span><div class="phone-status-icons"><span class="phone-signal"></span><span class="phone-battery"></span></div></div>
+              <div class="phone-app">
+                <div class="phone-app-head">
+                  <div class="phone-app-ham"><span></span><span></span><span></span></div>
+                  <div class="phone-app-title">Jobs</div>
+                  <div class="phone-app-action">+</div>
+                </div>
+                <div style="display:flex;gap:4px;margin-bottom:10px;overflow-x:auto;">
+                  <span class="mock-pill">Quoted 2</span>
+                  <span class="mock-pill blue">Sched 2</span>
+                  <span class="mock-pill navy">In progress 3</span>
+                  <span class="mock-pill">Finish 1</span>
+                </div>
+                <div class="mock-kb-card" style="margin-bottom:8px;"><div class="mock-kb-card-title">Gate repair — Johnson</div><div class="mock-kb-card-meta" style="color:#DC2626;">Due today · mobile</div><div class="mock-kb-card-val">$920</div></div>
+                <div class="mock-kb-card" style="margin-bottom:8px;"><div class="mock-kb-card-title">Steel stairs — Metro office</div><div class="mock-kb-card-meta">Commercial · Apr 25</div><div class="mock-kb-card-val">$6,800</div></div>
+                <div class="mock-kb-card" style="margin-bottom:8px;"><div class="mock-kb-card-title">Fire pit — residential</div><div class="mock-kb-card-meta">Apr 22 · on track</div><div class="mock-kb-card-val">$750</div></div>
+                <div class="mock-hint" style="margin-top:14px;">← swipe between stages →</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-hint">Full offline — syncs when signal returns</div>
+        </div>
+      </div>
+
+      <p class="feature-caption"><strong>What this shows:</strong> on the desktop, drag-and-drop between columns advances the stage and auto-fires the right background actions (quote approved → job created, job done → invoice drafted). On mobile, the crew sees only the column relevant to them and swipes between stages — less visual noise, larger tap targets, offline-capable.</p>
+    </section>
+
+
+    <!-- ══════ FEATURE 4: INVOICING ══════ -->
+    <section class="spec-section" id="m-invoices">
+      <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">Invoicing &amp; payment</h2></div>
+      <p class="sec-desc">Invoices auto-generate from completed jobs — no re-entry. The owner sees everything that's owed in one view. The customer gets a tap-to-pay link that works on any device. Overdue reminders fire automatically.</p>
+
+      <div class="device-row">
+        <!-- Web -->
+        <div>
+          <div class="device-label">Web — Receivables view</div>
+          <div class="web-frame">
+            <div class="web-chrome">
+              <span class="web-dot wd-r"></span><span class="web-dot wd-y"></span><span class="web-dot wd-g"></span>
+              <span class="web-url">app.weld-ops.com/invoices</span>
+            </div>
+            <div class="web-canvas">
+              <aside class="web-sidebar">
+                <div class="web-sidebar-logo">Weld<span>Ops</span></div>
+                <div class="web-sidebar-section">Main</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Dashboard</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Jobs</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Quotes</div>
+                <div class="web-sidebar-section">Business</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Customers</div>
+                <div class="web-sidebar-item active"><span class="web-sb-icon"></span>Invoices</div>
+                <div class="web-sidebar-item"><span class="web-sb-icon"></span>Materials</div>
+              </aside>
+              <div class="web-main">
+                <div class="web-main-head">
+                  <div class="web-main-title">Invoices <span class="sub">5 outstanding · $4,100</span></div>
+                  <div class="web-main-btn">+ New invoice</div>
+                </div>
+                <div class="mock-grid-4">
+                  <div class="mock-stat"><div class="mock-stat-label">Outstanding</div><div class="mock-stat-value">$4,100</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Due this wk</div><div class="mock-stat-value">$2,800</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Overdue</div><div class="mock-stat-value" style="color:#DC2626;">$400</div></div>
+                  <div class="mock-stat"><div class="mock-stat-label">Paid this mo</div><div class="mock-stat-value" style="color:#16A34A;">$14,350</div></div>
+                </div>
+                <div class="mock-panel">
+                  <div class="mock-panel-hd">Recent invoices</div>
+                  <div class="mock-row"><span class="mock-avatar">DA</span><div class="mock-row-main"><div class="mock-row-title">#1042 · Davis Auto · Exhaust system</div><div class="mock-row-meta">Sent Apr 17 · Due Apr 27</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;font-weight:500;">$1,100</span><span class="mock-pill blue">Sent</span></div>
+                  <div class="mock-row"><span class="mock-avatar amber">MO</span><div class="mock-row-main"><div class="mock-row-title">#1041 · Metro Office · Structural stairs</div><div class="mock-row-meta">Sent Apr 12 · Due Apr 22</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;font-weight:500;">$1,700</span><span class="mock-pill amber">Viewed</span></div>
+                  <div class="mock-row"><span class="mock-avatar red">HR</span><div class="mock-row-main"><div class="mock-row-title">#1040 · Hollis Ranch · Gate repair</div><div class="mock-row-meta">Sent Apr 5 · Due Apr 15</div></div><span style="font-family:var(--font-mono);color:#DC2626;font-size:10px;font-weight:500;">$760</span><span class="mock-pill red">Overdue</span></div>
+                  <div class="mock-row"><span class="mock-avatar green">TC</span><div class="mock-row-main"><div class="mock-row-title">#1039 · Thompson Co. · Gate install</div><div class="mock-row-meta">Paid Apr 10</div></div><span style="font-family:var(--font-mono);color:#16A34A;font-size:10px;font-weight:500;">$2,400</span><span class="mock-pill green">Paid</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone — customer-facing pay screen -->
+        <div>
+          <div class="device-label">Mobile — Customer pay link</div>
+          <div class="phone-frame">
+            <div class="phone-inner">
+              <div class="phone-notch"></div>
+              <div class="phone-status"><span>9:41</span><div class="phone-status-icons"><span class="phone-signal"></span><span class="phone-battery"></span></div></div>
+              <div class="phone-app">
+                <div style="text-align:center;padding:10px 0 4px;border-bottom:1px solid var(--border);margin-bottom:12px;">
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:1px;text-transform:uppercase;">Invoice</div>
+                  <div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--navy);margin-top:2px;">#1042</div>
+                </div>
+                <div style="font-size:10px;color:var(--muted);margin-bottom:2px;">Mike Rodriguez Welding LLC</div>
+                <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">(614) 555-0101</div>
+                <div style="font-size:10px;font-weight:500;margin-bottom:2px;">Bill to: Davis Auto</div>
+                <div style="font-size:9px;color:var(--muted);margin-bottom:10px;">3211 S High St, Columbus OH</div>
+
+                <div class="mock-panel" style="margin-top:0;">
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Custom exhaust fab</div><div class="mock-row-meta">Stainless</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$820.00</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Materials</div><div class="mock-row-meta">1.75" 16ga SS tube</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$180.00</span></div>
+                  <div class="mock-row"><div class="mock-row-main"><div class="mock-row-title">Tax (8.5%)</div></div><span style="font-family:var(--font-mono);color:var(--navy);font-size:10px;">$85.00</span></div>
+                </div>
+
+                <div style="text-align:right;padding:10px 0;border-top:1px solid var(--border);margin-top:8px;">
+                  <div class="mock-invoice-totalbl">Total due</div>
+                  <div class="mock-invoice-total">$1,100.00</div>
+                </div>
+
+                <div class="phone-cta amber">Pay $1,100 online</div>
+                <div class="mock-hint" style="margin-top:8px;">Stripe · Card · ACH · Apple Pay</div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-hint">Public link — no login required</div>
+        </div>
+      </div>
+
+      <p class="feature-caption"><strong>What this shows:</strong> on the owner's side, aging is color-coded (green paid, amber viewed, red overdue) with a single glance summary up top. The customer sees the pay screen with a full-width, glove-sized "Pay" button — Stripe, ACH, and Apple Pay supported. Every paid invoice automatically marks its source job Complete and fires a receipt to the customer.</p>
+    </section>
+
+  </div><!-- /content-wrap -->
+</div><!-- /page-mockups -->
+
+
 <!-- FOOTER -->
 <footer class="site-footer">
-  <strong>WeldOps</strong> &nbsp;·&nbsp; Project Hub v1.0 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Market Research · Brand Guide · Platform Specification
+  <strong>WeldOps</strong> &nbsp;·&nbsp; Project Hub v1.0 &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Market Research · Brand Guide · Platform Specification · Platform Mockups
 </footer>
 
 
@@ -1281,6 +2029,7 @@ function setupObserver(pageId, subnavId) {
 setupObserver('page-research', 'subnav-research');
 setupObserver('page-brand',    'subnav-brand');
 setupObserver('page-platform', 'subnav-platform');
+setupObserver('page-mockups',  'subnav-mockups');
 </script>
 </body>
 </html>
